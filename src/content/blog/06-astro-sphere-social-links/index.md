@@ -9,8 +9,6 @@ tags:
   - Aakriti Dhakal
 ---
 
-Aakriti Dhakal comes preconfigured with social media links for Email, Github, Linked In and Twitter (X), but it's very easy to add more.
-
 ### Edit `consts.ts`
 
 ```js
@@ -20,8 +18,8 @@ export const SOCIALS: Socials = [
   {
     NAME: "Github",
     ICON: "github",
-    TEXT: "markhorn-dev",
-    HREF: "https://github.com/markhorn-dev/astro-sphere",
+    TEXT: "aakriti208",
+    HREF: "https://github.com/aakriti208/astro-sphere",
   },
 ];
 ```

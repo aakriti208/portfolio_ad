@@ -1,14 +1,14 @@
 ---
 title: "Project One"
-summary: "Lorem ipsum dolor sit amet"
+summary: "CPTPro - Color Palette Recommender "
 date: "Mar 18 2022"
 draft: false
 tags:
-- Astro
-- Javascript
-- Typescript
-- Tailwind
-- SolidJs
+  - React Native
+  - NumPy
+  - Pandas
+  - Scikit-Learn
+  - TensorFlow
 demoUrl: https://astro-sphere-demo.vercel.app
 repoUrl: https://github.com/markhorn-dev/astro-sphere
 ---
