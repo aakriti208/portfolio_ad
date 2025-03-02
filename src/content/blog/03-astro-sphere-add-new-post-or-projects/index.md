@@ -1,12 +1,11 @@
 ---
-title: "Aakriti Dhakal: Adding a new post or project."
+title: "Astro: Adding a new post or project."
 summary: "Adding a new article (blog post or project) is pretty easy."
 date: "Mar 14 2024"
 draft: false
 tags:
   - Tutorial
   - Astro
-  - Aakriti Dhakal
 ---
 
 ### Basics
@@ -42,14 +41,14 @@ Example blog post frontmatter
 
 ```yaml
 ---
-title: "Aakriti Dhakal: Adding a new post or project."
+title: "Astro: Adding a new post or project."
 summary: "Adding a new article (blog post or project) is pretty easy."
 date: "Mar 18 2024"
 draft: false
 tags:
   - Tutorial
   - Astro
-  - Aakriti Dhakal
+  - Astro
 ---
 ```
 
@@ -69,8 +68,8 @@ Example project frontmatter
 
 ```yaml
 ---
-title: "Aakriti Dhakal"
-summary: "Aakriti Dhakal, a portfolio and blog for designers and developers."
+title: "Astro"
+summary: "Astro, a portfolio and blog for designers and developers."
 date: "Mar 18 2024"
 draft: false
 tags:

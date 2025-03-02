@@ -1,12 +1,16 @@
 ---
-title: "Project Three"
-summary: "Lorem ipsum dolor sit amet"
-date: "Mar 16 2022"
+title: "Pay Share"
+summary: "Expense Management App"
+date: "Dec 1 2022"
 draft: false
 tags:
-  - Vue
-  - Javascript
-  - Tailwind
+  - React
+  - Redux
+  - Typescript
+  - Ant Design
+  - Node.js
+  - Express
+  - MySQL
 repoUrl: https://github.com/aakriti208/payshare
 ---
 

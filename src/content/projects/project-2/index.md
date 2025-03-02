@@ -1,7 +1,7 @@
 ---
-title: "Project Two"
-summary: "Student Activity Tracker"
-date: "Mar 17 2022"
+title: "Hi Bobcats"
+summary: "Tracks activities of campus students"
+date: "May 17 2024"
 draft: false
 tags:
   - Javascript

@@ -1,15 +1,14 @@
 ---
-title: "Aakriti Dhakal: Getting Started"
+title: "Astro: Getting Started"
 summary: "You've downloaded and installed the project. Let's hit the ground running."
 date: "Mar 16 2024"
 draft: false
 tags:
   - Tutorial
   - Astro
-  - Aakriti Dhakal
 ---
 
-Aakriti Dhakal is designed to be configurable. This article will cover the basics on
+Astro is designed to be configurable. This article will cover the basics on
 configuring the site and make it personal.
 
 ### First let's change the url
@@ -34,9 +33,9 @@ export default defineConfig({
 // src/consts.ts
 
 export const SITE: Site = {
-  TITLE: "Aakriti Dhakal",
+  TITLE: "Astro",
   DESCRIPTION:
-    "Welcome to Aakriti Dhakal, a portfolio and blog for designers and developers.",
+    "Welcome to Astro, a portfolio and blog for designers and developers.",
   AUTHOR: "Mark Horn",
 };
 ```
@@ -70,7 +69,7 @@ The links that are displayed in the header and drawer
 export const LINKS: Links = [
   { HREF: "/", TEXT: "Home" },
   { HREF: "/work", TEXT: "Work" },
-  { HREF: "/blog", TEXT: "Blog" },
+  // { HREF: "/blog", TEXT: "Blog" },
   { HREF: "/projects", TEXT: "Projects" },
 ];
 ```

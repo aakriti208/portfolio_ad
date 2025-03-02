@@ -1,7 +1,7 @@
 ---
-title: "Project One"
-summary: "CPTPro - Color Palette Recommender "
-date: "Mar 18 2022"
+title: "CPT Pro"
+summary: "Personalized color palette recommender based on skin tone, hair color and eye color"
+date: "Oct 2024"
 draft: false
 tags:
   - React Native

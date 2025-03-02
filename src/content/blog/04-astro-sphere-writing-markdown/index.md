@@ -1,12 +1,11 @@
 ---
-title: "Aakriti Dhakal: Writing Markdown"
-summary: "Basic Markdown syntax that can be used when writing Markdown content in Aakriti Dhakal."
+title: "Astro: Writing Markdown"
+summary: "Basic Markdown syntax that can be used when writing Markdown content in Astro."
 date: "Mar 13 2024"
 draft: false
 tags:
   - Tutorial
   - Astro
-  - Aakriti Dhakal
   - Markdown
 ---
 
