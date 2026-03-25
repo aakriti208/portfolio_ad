@@ -1,17 +1,17 @@
 ---
-title: "Pay Share"
-summary: "Expense Management App"
-date: "Dec 1 2022"
+title: "PayShare"
+summary: "Expense splitting and shared finance tracker with real-time sync and debt reminders"
+date: "Dec 2022"
 draft: false
 tags:
   - React
   - Redux
-  - Typescript
-  - Ant Design
+  - TypeScript
   - Node.js
   - Express
   - MySQL
+  - Ant Design
 repoUrl: https://github.com/aakriti208/payshare
 ---
 
-This web application is a convenient expense management tool that makes it easy to split bills, track shared expenses, and send friendly debt reminders. It offers real-time expense tracking and seamless multi-platform synchronization, allowing users to manage finances effortlessly from any device. Perfect for friends, roommates, or travel companions, the app ensures transparency and keeps everyone on the same page.
+Developed a full-stack expense management application that makes it easy to split bills, track shared expenses, and send debt reminders among groups. The frontend is built with React, Redux, and TypeScript for predictable state management, styled with Ant Design. A Node.js/Express REST API connects to a MySQL database, providing real-time expense tracking and multi-platform synchronization — ideal for friends, roommates, or travel groups.

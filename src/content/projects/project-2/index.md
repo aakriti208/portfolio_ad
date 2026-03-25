@@ -1,7 +1,7 @@
 ---
 title: "Hi Bobcats"
-summary: "Tracks activities of campus students"
-date: "May 17 2024"
+summary: "Full-stack campus activity platform for student registration, roommate search, meal plans, and bus tickets"
+date: "May 2024"
 draft: false
 tags:
   - Javascript
@@ -11,4 +11,4 @@ tags:
 repoUrl: https://github.com/gadhikaritxstate/student-activity-webapp
 ---
 
-Built a comprehensive full-stack web application that facilitates user registration and profile management, enabling users to search for roommates, subscribe to meal plans and purchase bus tickets in one integrated platform.
+Built a full-stack web application for Texas State University students that consolidates campus services into a single platform. Features include user registration and profile management, roommate search and matching, meal plan subscriptions, and bus ticket purchasing — reducing the friction of navigating multiple disconnected systems. The backend is powered by Node.js with a MySQL database, and views are rendered server-side using EJS.

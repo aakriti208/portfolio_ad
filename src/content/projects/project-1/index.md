@@ -1,17 +1,16 @@
 ---
-title: "CPT Pro"
-summary: "Personalized color palette recommender based on skin tone, hair color and eye color"
-date: "Oct 2024"
+title: "CPTPro"
+summary: "Image processing tool that extracts facial features to generate personalized color palettes using color harmony theory"
+date: "2024"
 draft: false
 tags:
-  - React Native
-  - NumPy
-  - Pandas
-  - Scikit-Learn
-  - TensorFlow
+  - Python
   - OpenCV
-# demoUrl: https://astro-sphere-demo.vercel.app
+  - Dlib
+  - Flask
+  - TensorFlow
+  - Matplotlib
 repoUrl: https://github.com/shassshank/CPTpro
 ---
 
-Developed a mobile app achieving 90% accuracy in detecting skin tone, hair color, and eye color from user photos to generate personalized color palette recommendations.
+Developed an image processing tool to extract facial features — eyes and hair color, and skin tones — from user-uploaded photos, applying color harmony theory to automate the generation of personalized color palettes. The pipeline leverages Dlib for facial landmark detection, OpenCV for image preprocessing, and TensorFlow for classification, with results served through a Flask web interface.
