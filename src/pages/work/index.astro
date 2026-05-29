@@ -5,12 +5,12 @@ import { WORK } from "@consts"
 
 const collection = await getCollection("work")
 collection.sort(
-  (a, b) =>
+  (a:any, b:any) =>
     new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime()
 )
 
 const work = await Promise.all(
-  collection.map(async (item) => {
+  collection.map(async (item: any) => {
     const { Content } = await item.render()
     return { ...item, Content }
   })

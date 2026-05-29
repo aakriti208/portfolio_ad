@@ -1,32 +1,36 @@
 ---
-import { getCollection } from "astro:content"
-import PageLayout from "@layouts/PageLayout.astro"
-import ArrowCard from "@components/ArrowCard"
-import { SITE, SOCIALS } from "@consts"
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import ArrowCard from "@components/ArrowCard";
+import { SITE, SOCIALS } from "@consts";
 
 const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
+  .filter((project) => !project.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3)
+  .slice(0, 3);
 ---
 
 <PageLayout title="Home" description={SITE.DESCRIPTION}>
-
   <!-- ─── HERO ─────────────────────────────────────────── -->
-  <section id="hero" class="relative min-h-screen w-full flex items-center justify-center">
+  <section
+    id="hero"
+    class="relative min-h-screen w-full flex items-center justify-center"
+  >
     <div class="text-center px-6 max-w-xl mx-auto select-none">
-
       <!-- Prompt -->
-      <p class="animate prompt-line text-[10px] uppercase tracking-[0.25em] mb-8">
+      <p
+        class="animate prompt-line text-[10px] uppercase tracking-[0.25em] mb-8"
+      >
         aakriti@portfolio:~$
       </p>
 
       <!-- Name: typewriter -->
-      <h1 class="animate text-[clamp(2.2rem,6vw,4rem)] font-bold tracking-tight leading-none mb-5 name-heading">
+      <h1
+        class="animate text-[clamp(2.2rem,6vw,4rem)] font-bold tracking-tight leading-none mb-5 name-heading"
+      >
         <span id="name-text" aria-label={SITE.AUTHOR}></span><span
           class="cursor-blink"
-          id="name-cursor"
-        ></span>
+          id="name-cursor"></span>
       </h1>
 
       <!-- Role: cycling -->
@@ -44,11 +48,22 @@ const projects = (await getCollection("projects"))
     </div>
 
     <!-- Scroll hint -->
-    <div class="animate absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-hint">
+    <div
+      class="animate absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-hint"
+    >
       <span class="text-[9px] uppercase tracking-[0.35em]">scroll</span>
-      <svg width="12" height="18" viewBox="0 0 12 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="6" y1="1" x2="6" y2="17"/>
-        <polyline points="2,12 6,17 10,12"/>
+      <svg
+        width="12"
+        height="18"
+        viewBox="0 0 12 18"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="6" y1="1" x2="6" y2="17"></line>
+        <polyline points="2,12 6,17 10,12"></polyline>
       </svg>
     </div>
   </section>
@@ -56,60 +71,46 @@ const projects = (await getCollection("projects"))
   <!-- ─── CONTENT ───────────────────────────────────────── -->
   <div class="content-area">
     <div class="mx-auto max-w-screen-sm px-5 pb-24 space-y-16">
-
-      <!-- About -->
-      <section class="animate">
-        <p class="section-label mb-5">$ cat about.md</p>
-        <div class="space-y-4 text-sm leading-loose body-text">
-          <p>I'm a <span class="accent">software engineer</span>, <span class="accent">ML researcher</span>, and <span class="accent">UI/UX designer</span> — fueled by caffeine and a stubborn conviction that the best AI still needs a human touch.</p>
-          <p>By day, I contribute to an <span class="accent">NSF-funded research project</span> at Texas State University, experimenting with deep learning and hoping the machines don't fully replace me before graduation. By night, I consult startups on digital strategy and ship code that actually works in production.</p>
-          <p>Two years at <span class="accent">Heubert</span> taught me that "just one small change" is never just one small change. Before that — startup bingo, building digital presence from zero, and somehow turning a company into an <span class="accent">industry leader in two years</span>.</p>
-        </div>
-      </section>
-
-      <!-- Recent Projects -->
-      <section class="animate">
-        <div class="flex items-center justify-between mb-5">
-          <p class="section-label">$ ls projects/</p>
-          <a href="/projects" class="see-all-link text-[11px] uppercase tracking-[0.15em]">all &rarr;</a>
-        </div>
-        <ul class="space-y-3">
-          {projects.map((project) => (
-            <li>
-              <ArrowCard entry={project} />
-            </li>
-          ))}
-        </ul>
-      </section>
-
       <!-- Contact -->
       <section class="animate">
         <p class="section-label mb-5">$ cat contact.txt</p>
         <div class="space-y-3">
-          {SOCIALS.map(social => (
-            <div class="flex items-center gap-3 text-sm">
-              <span class="contact-label w-16 shrink-0 text-[10px] uppercase tracking-widest">{social.NAME}</span>
-              <span class="divider-line">—</span>
-              <a href={social.HREF} target="_blank" class="contact-link">
-                {social.TEXT}
-              </a>
-            </div>
-          ))}
+          {
+            SOCIALS.map((social) => (
+              <div class="flex items-center gap-3 text-sm">
+                <span class="contact-label w-16 shrink-0 text-[10px] uppercase tracking-widest">
+                  {social.NAME}
+                </span>
+                <span class="divider-line">—</span>
+                <a href={social.HREF} target="_blank" class="contact-link">
+                  {social.TEXT}
+                </a>
+              </div>
+            ))
+          }
         </div>
       </section>
-
     </div>
   </div>
-
 </PageLayout>
 
 <style>
   /* Hero text colours */
-  .prompt-line  { color: var(--text-dim); }
-  .name-heading { color: #ffffff; }
-  .prompt-arrow { color: var(--text-dim); }
-  .role-text    { color: var(--cyan); }
-  .scroll-hint  { color: var(--text-dim); }
+  .prompt-line {
+    color: var(--text-dim);
+  }
+  .name-heading {
+    color: #ffffff;
+  }
+  .prompt-arrow {
+    color: var(--text-dim);
+  }
+  .role-text {
+    color: var(--cyan);
+  }
+  .scroll-hint {
+    color: var(--text-dim);
+  }
 
   /* CTAs */
   .cta-primary {
@@ -119,7 +120,9 @@ const projects = (await getCollection("projects"))
     letter-spacing: 0.15em;
     border: 1px solid var(--cyan);
     color: var(--cyan);
-    transition: background-color 0.18s, color 0.18s;
+    transition:
+      background-color 0.18s,
+      color 0.18s;
   }
   .cta-primary:hover {
     background-color: var(--cyan);
@@ -132,7 +135,9 @@ const projects = (await getCollection("projects"))
     letter-spacing: 0.15em;
     border: 1px solid var(--bg-border);
     color: var(--text-dim);
-    transition: border-color 0.18s, color 0.18s;
+    transition:
+      border-color 0.18s,
+      color 0.18s;
   }
   .cta-secondary:hover {
     border-color: var(--cyan);
@@ -140,82 +145,109 @@ const projects = (await getCollection("projects"))
   }
 
   /* Content area */
-  .content-area { background-color: var(--bg); }
+  .content-area {
+    background-color: var(--bg);
+  }
   .section-label {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.3em;
     color: var(--text-dim);
   }
-  .body-text { color: var(--text); }
-  .accent    { color: var(--cyan); }
+  .body-text {
+    color: var(--text);
+  }
+  .accent {
+    color: var(--cyan);
+  }
 
   /* Project section */
-  .see-all-link { color: var(--text-dim); transition: color 0.18s; }
-  .see-all-link:hover { color: var(--cyan); }
+  .see-all-link {
+    color: var(--text-dim);
+    transition: color 0.18s;
+  }
+  .see-all-link:hover {
+    color: var(--cyan);
+  }
 
   /* Contact */
-  .contact-label { color: var(--text-dim); }
-  .divider-line  { color: var(--bg-border); font-size: 12px; }
-  .contact-link  { color: var(--text); transition: color 0.18s; }
-  .contact-link:hover { color: var(--cyan); }
+  .contact-label {
+    color: var(--text-dim);
+  }
+  .divider-line {
+    color: var(--bg-border);
+    font-size: 12px;
+  }
+  .contact-link {
+    color: var(--text);
+    transition: color 0.18s;
+  }
+  .contact-link:hover {
+    color: var(--cyan);
+  }
 </style>
 
 <script is:inline>
-  ;(function () {
-    var name  = 'Aakriti Dhakal'
-    var roles = ['AI Engineer', 'ML Researcher', 'UI Designer', 'Grad Student']
-    var ri = 0, ci = 0, deleting = false
+  (function () {
+    var name = "Aakriti Dhakal";
+    var roles = [
+      "AI Engineer",
+      "Full-stack Developer",
+      "...is Building Systems",
+    ];
+    var ri = 0,
+      ci = 0,
+      deleting = false;
 
     function init() {
-      var nameEl   = document.getElementById('name-text')
-      var nameCur  = document.getElementById('name-cursor')
-      var roleEl   = document.getElementById('role-text')
-      var roleCur  = document.getElementById('role-cursor')
-      if (!nameEl || !roleEl) return
+      var nameEl = document.getElementById("name-text");
+      var nameCur = document.getElementById("name-cursor");
+      var roleEl = document.getElementById("role-text");
+      var roleCur = document.getElementById("role-cursor");
+      if (!nameEl || !roleEl) return;
 
-      var i = 0
+      var i = 0;
       function typeName() {
-        nameEl.textContent = name.slice(0, i + 1)
-        i++
+        nameEl.textContent = name.slice(0, i + 1);
+        i++;
         if (i < name.length) {
-          setTimeout(typeName, 60 + Math.random() * 28)
+          setTimeout(typeName, 60 + Math.random() * 28);
         } else {
           setTimeout(function () {
-            if (nameCur) nameCur.style.display = 'none'
-            if (roleCur) roleCur.style.display = 'inline-block'
-            typeRole()
-          }, 320)
+            if (nameCur) nameCur.style.display = "none";
+            if (roleCur) roleCur.style.display = "inline-block";
+            typeRole();
+          }, 320);
         }
       }
 
       function typeRole() {
-        var cur = roles[ri]
+        var cur = roles[ri];
         if (!deleting) {
-          roleEl.textContent = cur.slice(0, ci + 1)
-          ci++
+          roleEl.textContent = cur.slice(0, ci + 1);
+          ci++;
           if (ci === cur.length) {
-            deleting = true
-            setTimeout(typeRole, 2100)
-            return
+            deleting = true;
+            setTimeout(typeRole, 2100);
+            return;
           }
         } else {
-          roleEl.textContent = cur.slice(0, ci - 1)
-          ci--
+          roleEl.textContent = cur.slice(0, ci - 1);
+          ci--;
           if (ci === 0) {
-            deleting = false
-            ri = (ri + 1) % roles.length
-            setTimeout(typeRole, 260)
-            return
+            deleting = false;
+            ri = (ri + 1) % roles.length;
+            setTimeout(typeRole, 260);
+            return;
           }
         }
-        setTimeout(typeRole, deleting ? 36 : 72 + Math.random() * 22)
+        setTimeout(typeRole, deleting ? 36 : 72 + Math.random() * 22);
       }
 
-      setTimeout(typeName, 480)
+      setTimeout(typeName, 480);
     }
 
-    document.addEventListener('DOMContentLoaded', init)
-    document.addEventListener('astro:after-swap', init)
-  })()
+    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("astro:after-swap", init);
+  })();
 </script>
