@@ -29,25 +29,10 @@ function changeTheme() {
 }
 
 function preloadTheme() {
-  const theme = (() => {
-    const userTheme = localStorage.theme
-
-    if (userTheme === "light" || userTheme === "dark") {
-      return userTheme
-    } else {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-    }
-  })()
-
+  // Always force dark — this site uses a terminal aesthetic
   const element = document.documentElement
-
-  if (theme === "dark") {
-    element.classList.add("dark")
-  } else {
-    element.classList.remove("dark")
-  }
-
-  localStorage.theme = theme
+  element.classList.add("dark")
+  localStorage.theme = "dark"
 }
 
 window.onload = () => {

@@ -1,0 +1,308 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+
+const PAGE = {
+  TITLE: "Systems",
+  DESCRIPTION: "How I think about building AI systems — pipelines, tradeoffs, and architecture patterns.",
+}
+
+// Pipeline diagram data
+const pipelines = [
+  {
+    id: "rag",
+    title: "RAG Pipeline",
+    subtitle: "Retrieval-Augmented Generation",
+    nodes: [
+      { id: "q",    label: "Query",          tooltip: "Raw user input — natural language question" },
+      { id: "emb",  label: "Embeddings",     tooltip: "Converts text to dense vector using an embedding model (e.g. text-embedding-3-small)" },
+      { id: "vdb",  label: "Vector DB",      tooltip: "Approximate nearest-neighbour search over document embeddings (e.g. Chroma, Pinecone)" },
+      { id: "ctx",  label: "Context",        tooltip: "Top-k retrieved chunks assembled into a context window" },
+      { id: "llm",  label: "LLM",            tooltip: "Language model receives [system prompt + context + query] and generates a grounded response" },
+      { id: "res",  label: "Response",       tooltip: "Final answer, optionally with source citations" },
+    ],
+  },
+  {
+    id: "train",
+    title: "ML Training Loop",
+    subtitle: "Supervised Learning Cycle",
+    nodes: [
+      { id: "data",  label: "Raw Data",      tooltip: "Labelled dataset; split into train / val / test" },
+      { id: "prep",  label: "Preprocessing", tooltip: "Normalisation, tokenisation, augmentation, class balancing" },
+      { id: "model", label: "Model",         tooltip: "Neural network or classical ML model with defined architecture and hyperparameters" },
+      { id: "loss",  label: "Loss",          tooltip: "Scalar error signal — cross-entropy, MSE, contrastive, etc." },
+      { id: "back",  label: "Backprop",      tooltip: "Gradient computation via chain rule; Adam / SGD / AdamW optimiser step" },
+      { id: "eval",  label: "Evaluate",      tooltip: "Validation metrics: accuracy, F1, AUC, BLEU — gates deployment" },
+    ],
+  },
+  {
+    id: "api",
+    title: "Inference API Architecture",
+    subtitle: "Production Serving Layer",
+    nodes: [
+      { id: "client",  label: "Client",         tooltip: "Browser, mobile app, or service — sends HTTP/gRPC request" },
+      { id: "gw",      label: "API Gateway",    tooltip: "Auth, rate limiting, routing, observability (latency, errors, saturation)" },
+      { id: "cache",   label: "Cache",          tooltip: "Redis / KV store — semantic caching on query hash to avoid redundant inference" },
+      { id: "server",  label: "Model Server",   tooltip: "Triton, TorchServe, or vLLM — handles batching, quantisation, and GPU scheduling" },
+      { id: "queue",   label: "Queue",          tooltip: "Async jobs for long-running inference (Celery / BullMQ) — prevents timeout on heavy tasks" },
+      { id: "resp",    label: "Response",       tooltip: "Streamed or batch response with metadata: tokens used, latency, model version" },
+    ],
+  },
+]
+---
+
+<PageLayout title={PAGE.TITLE} description={PAGE.DESCRIPTION}>
+  <div class="pt-28 pb-24 systems-bg">
+    <div class="mx-auto max-w-screen-md px-5">
+
+      <!-- Header -->
+      <div class="animate mb-14">
+        <p class="cmd-prefix mb-2">$ cat systems/README.md</p>
+        <h1 class="page-title">How I Build</h1>
+        <p class="page-subtitle mt-2">
+          Hover each node to see what it does. These aren't slides — they're the mental models I use to design systems.
+        </p>
+      </div>
+
+      <!-- Pipeline diagrams -->
+      {pipelines.map((pipeline, pi) => (
+        <section class="animate pipeline-section" style={`animation-delay: ${pi * 0.12}s`}>
+          <div class="pipeline-header">
+            <h2 class="pipeline-title">{pipeline.title}</h2>
+            <span class="pipeline-subtitle">{pipeline.subtitle}</span>
+          </div>
+
+          <!-- Node row -->
+          <div class="node-row" id={`pipeline-${pipeline.id}`}>
+            {pipeline.nodes.map((node, ni) => (
+              <div class="node-group">
+                <div
+                  class="node"
+                  data-tooltip={node.tooltip}
+                  tabindex="0"
+                  role="button"
+                  aria-label={`${node.label}: ${node.tooltip}`}
+                >
+                  <span class="node-label">{node.label}</span>
+                </div>
+                {ni < pipeline.nodes.length - 1 && (
+                  <div class="connector" aria-hidden="true">
+                    <svg width="32" height="16" viewBox="0 0 32 16" class="connector-svg">
+                      <line x1="0" y1="8" x2="24" y2="8" class="connector-line" />
+                      <polyline points="20,4 26,8 20,12" class="connector-arrow" />
+                      <rect x="0" y="6" width="8" height="4" class="flow-dot" rx="2" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <!-- Tooltip bar -->
+          <div class="tooltip-bar" id={`tooltip-${pipeline.id}`}>
+            <span class="tooltip-prompt">&gt;</span>
+            <span class="tooltip-text">hover a node to see what it does</span>
+          </div>
+        </section>
+      ))}
+
+      <!-- Written section -->
+      <section class="animate philosophy-section">
+        <div class="philosophy-header">
+          <p class="cmd-prefix mb-2">$ cat philosophy.md</p>
+          <h2 class="section-title">Engineering Philosophy</h2>
+        </div>
+
+        <div class="philosophy-body">
+          <div class="phil-block">
+            <h3 class="phil-heading">// Start with data flow, not code</h3>
+            <p class="phil-text">
+              Before writing a line of code, I draw the pipeline on a whiteboard.
+              Where does data enter? What transforms it? What exits? Most system complexity
+              lives in the seams between components, not inside them.
+              <!-- TODO: replace with real philosophy content -->
+            </p>
+          </div>
+
+          <div class="phil-block">
+            <h3 class="phil-heading">// Tradeoffs I think about</h3>
+            <ul class="tradeoffs-list">
+              <li><span class="tradeoff-key">latency vs. accuracy</span> — <span class="phil-text">a cached slightly-stale answer often beats a fresh one that times out</span></li>
+              <li><span class="tradeoff-key">complexity vs. correctness</span> — <span class="phil-text">the simplest model that solves the problem is the right model</span></li>
+              <li><span class="tradeoff-key">precision vs. recall</span> — <span class="phil-text">depends entirely on the cost of each type of error in context</span></li>
+              <li><span class="tradeoff-key">build vs. buy</span> — <span class="phil-text">buy commodity infrastructure, build differentiating logic</span></li>
+            </ul>
+          </div>
+
+          <div class="phil-block">
+            <h3 class="phil-heading">// How I break down problems</h3>
+            <p class="phil-text">
+              <!-- TODO: replace with your actual approach -->
+              [PROBLEM_DECOMPOSITION_PHILOSOPHY — describe your approach to breaking down engineering problems,
+              how you identify the hardest subproblem first, how you prototype, how you decide when something
+              is "done enough" to ship vs. needs more iteration]
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .systems-bg { background-color: var(--bg); }
+
+  .cmd-prefix {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--text-dim);
+  }
+  .page-title   { color: var(--cyan); font-size: 1.4rem; font-weight: 700; }
+  .page-subtitle { font-size: 12px; color: var(--text-dim); line-height: 1.6; max-width: 56ch; }
+
+  /* Pipeline sections */
+  .pipeline-section {
+    border: 1px solid var(--bg-border);
+    background-color: var(--bg-surface);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .pipeline-header { margin-bottom: 1.25rem; }
+  .pipeline-title    { font-size: 0.9rem; font-weight: 700; color: #ffffff; }
+  .pipeline-subtitle { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-dim); }
+
+  /* Node row */
+  .node-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+  .node-group { display: flex; align-items: center; }
+
+  /* Individual node */
+  .node {
+    border: 1px solid var(--bg-border);
+    background-color: var(--bg);
+    padding: 0.45rem 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.18s, background-color 0.18s;
+    outline: none;
+    position: relative;
+  }
+  .node:hover, .node:focus {
+    border-color: var(--cyan);
+    background-color: var(--cyan-dim);
+  }
+  .node-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    transition: color 0.18s;
+  }
+  .node:hover .node-label, .node:focus .node-label { color: var(--cyan); }
+
+  /* Connectors */
+  .connector { display: flex; align-items: center; }
+  .connector-svg { display: block; }
+  .connector-line  { stroke: var(--bg-border); stroke-width: 1; }
+  .connector-arrow { stroke: var(--bg-border); stroke-width: 1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Animated flow dot */
+  .flow-dot {
+    fill: var(--cyan);
+    opacity: 0.6;
+    animation: flow-right 2s linear infinite;
+  }
+  @keyframes flow-right {
+    0%   { transform: translateX(0px);  opacity: 0;   }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.8; }
+    100% { transform: translateX(22px); opacity: 0;   }
+  }
+
+  /* Tooltip bar */
+  .tooltip-bar {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--bg-border);
+    min-height: 2.5rem;
+    transition: color 0.15s;
+  }
+  .tooltip-prompt { font-size: 10.5px; color: var(--cyan); flex-shrink: 0; }
+  .tooltip-text   { font-size: 11px; color: var(--text-dim); line-height: 1.55; transition: color 0.15s; }
+  .tooltip-text.active { color: var(--text); }
+
+  /* Philosophy */
+  .philosophy-section {
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--bg-border);
+    padding-top: 2rem;
+  }
+  .section-title { color: var(--cyan); font-size: 1.1rem; font-weight: 700; }
+  .philosophy-body { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.75rem; }
+
+  .phil-heading {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    margin-bottom: 0.6rem;
+  }
+  .phil-text { font-size: 13px; color: var(--text); line-height: 1.7; }
+
+  .tradeoffs-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .tradeoff-key { color: var(--cyan); font-weight: 600; }
+</style>
+
+<script is:inline>
+  (function () {
+    function initPipelines() {
+      document.querySelectorAll('.node').forEach(function (node) {
+        var tooltip = node.getAttribute('data-tooltip')
+        var pipelineEl = node.closest('.pipeline-section')
+        if (!pipelineEl) return
+        var pipelineId = pipelineEl.id
+        var tooltipBar = pipelineEl.querySelector('.tooltip-text')
+
+        function show() {
+          if (tooltipBar && tooltip) {
+            tooltipBar.textContent = tooltip
+            tooltipBar.classList.add('active')
+          }
+        }
+        function hide() {
+          if (tooltipBar) {
+            tooltipBar.textContent = 'hover a node to see what it does'
+            tooltipBar.classList.remove('active')
+          }
+        }
+
+        node.addEventListener('mouseenter', show)
+        node.addEventListener('focus',      show)
+        node.addEventListener('mouseleave', hide)
+        node.addEventListener('blur',       hide)
+      })
+    }
+
+    document.addEventListener('DOMContentLoaded', initPipelines)
+    document.addEventListener('astro:after-swap', initPipelines)
+  })()
+</script>

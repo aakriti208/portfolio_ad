@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "sans": ["Atkinson", ...defaultTheme.fontFamily.sans],
+        "sans": ["JetBrains Mono", "Fira Code", "Cascadia Code", "ui-monospace", ...defaultTheme.fontFamily.mono],
+        "mono": ["JetBrains Mono", "Fira Code", "Cascadia Code", "ui-monospace", ...defaultTheme.fontFamily.mono],
       },
       typography: {
         DEFAULT: {

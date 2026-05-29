@@ -2,46 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --copy-btn-margin:10px;
+/* ─── Design tokens ─────────────────────────────────────── */
+:root {
+  --bg:          #0a0a0a;
+  --bg-surface:  #111111;
+  --bg-border:   #1e1e1e;
+  --cyan:        #00f5ff;
+  --cyan-dim:    rgba(0, 245, 255, 0.08);
+  --text:        #d4d4d4;
+  --text-dim:    #505050;
+  --copy-btn-margin: 10px;
 }
 
-@layer base {
-  @font-face {
-    font-family: "Atkinson";
-    src: url("/fonts/atkinson-regular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: "Atkinson";
-    src: url("/fonts/atkinson-bold.woff") format("woff");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-}
-
+/* ─── Base ───────────────────────────────────────────────── */
 html {
   overflow-y: scroll;
-  color-scheme: light;
-  background-color: white;
-  font-family: "Atkinson", sans-serif;
-  
-}
-
-html.dark {
   color-scheme: dark;
-  background-color: black;
+  background-color: var(--bg) !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
 }
 
 html,
 body {
   @apply h-full w-full antialiased;
-  @apply bg-white dark:bg-black;
-  @apply text-black/75 dark:text-white/75;
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
 }
 
 body {
@@ -49,51 +34,51 @@ body {
 }
 
 main {
-  @apply flex flex-col flex-1 bg-white dark:bg-black;
+  @apply flex flex-col flex-1;
+  background-color: var(--bg) !important;
 }
 
+/* ─── Header ─────────────────────────────────────────────── */
 header {
-  @apply border-b;
   @apply transition-all duration-300 ease-in-out;
+  border-bottom: 1px solid transparent;
 }
 
 header:not(.scrolled) {
-  @apply bg-transparent border-transparent;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 header.scrolled {
-  @apply bg-white/75 dark:bg-black/50;
-  @apply border-black/10 dark:border-white/25;
-  @apply backdrop-blur-sm saturate-200;
+  background-color: rgba(10, 10, 10, 0.92) !important;
+  border-color: var(--bg-border) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
-article {
-  @apply prose dark:prose-invert max-w-full pb-12;
-}
-
+/* ─── Typography helpers ─────────────────────────────────── */
 .page-heading {
-  @apply font-semibold text-black dark:text-white;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.page-heading::before {
+  content: '$ ';
+  color: var(--text-dim);
 }
 
 .blend {
-  @apply transition-all duration-300 ease-in-out;
+  @apply transition-all duration-200 ease-in-out;
 }
 
-/** Light theme particles on home page */
-@keyframes animateParticle {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-2000px);
-  }
-}
-
-/** styles for public /animation.js */
+/* ─── Scroll-reveal animation ────────────────────────────── */
 .animate {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s ease, transform 1s ease;
+  transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
 
 .animate.show {
@@ -101,68 +86,94 @@ article {
   transform: translateY(0);
 }
 
-article img {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: block;
-  margin: 0 auto;
+/* ─── Terminal cursor ────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
-/**
- * TWINKLE STARS
- */
-
- #twinkle-star.template {
-  @apply absolute -left-full; /* hide offscreen */
+.cursor-blink {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  background-color: var(--cyan);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+  position: relative;
+  top: 1px;
 }
 
-#twinkle-star.twinkle {
-  @apply animate-twinkle; /* defined in tailwind.config */
+/* ─── Prose overrides ────────────────────────────────────── */
+article {
+  @apply max-w-full pb-12;
+  color: var(--text);
 }
 
-
-/**
- * Meteors
- */
-
-#meteors .shower {
-  @apply absolute inset-0 top-0;;
-  @apply left-1/2 -translate-x-1/2;
-  @apply w-screen aspect-square;
+.prose {
+  --tw-prose-body:       var(--text);
+  --tw-prose-headings:   var(--cyan);
+  --tw-prose-links:      var(--cyan);
+  --tw-prose-bold:       #ffffff;
+  --tw-prose-code:       var(--text);
+  --tw-prose-pre-bg:     var(--bg-surface);
+  --tw-prose-pre-code:   var(--text);
+  --tw-prose-quotes:     var(--text);
+  --tw-prose-bullets:    var(--text-dim);
+  --tw-prose-counters:   var(--text-dim);
+  --tw-prose-hr:         var(--bg-border);
+  --tw-prose-th-borders: var(--bg-border);
+  --tw-prose-td-borders: var(--bg-border);
 }
 
-#meteors .meteor {
-  @apply animate-meteor; /* defined in tailwind.config */
-  @apply absolute top-1/2 left-1/2 w-px h-[75vh];
-  @apply bg-gradient-to-b from-white to-transparent;
+/* ─── Scanlines (subtle) ─────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.045) 3px,
+    rgba(0, 0, 0, 0.045) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
 }
 
-#meteors .shower.ur {
-  @apply rotate-45;
-}
-
-#meteors .shower.dr {
-  @apply rotate-135;
-}
-
-#meteors .shower.dl {
-  @apply rotate-225;
-}
-
-#meteors .shower.ul {
-  @apply rotate-315;
-}
-
-.copy-cnt{
+/* ─── Copy code button ───────────────────────────────────── */
+.copy-cnt {
   @apply absolute w-full;
-  top:var(--copy-btn-margin);
+  top: var(--copy-btn-margin);
 }
 .copy-btn {
-  @apply  w-[30px] fixed;
-  left:calc(100% - var(--copy-btn-margin));
+  @apply w-[30px] fixed;
+  left: calc(100% - var(--copy-btn-margin));
   transform: translateX(-100%);
 }
-
 .copy-svg {
-  @apply w-full aspect-square text-white opacity-70 hover:opacity-90;
+  @apply w-full aspect-square opacity-70 hover:opacity-90;
+  color: var(--cyan);
 }
+
+/* ─── Star / meteor compat stubs ─────────────────────────── */
+@keyframes animateParticle {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-2000px); }
+}
+
+#twinkle-star.template { @apply absolute -left-full; }
+#twinkle-star.twinkle  { @apply animate-twinkle; }
+
+#meteors .shower {
+  @apply absolute inset-0 top-0 left-1/2 -translate-x-1/2 w-screen aspect-square;
+}
+#meteors .meteor {
+  @apply animate-meteor absolute top-1/2 left-1/2 w-px h-[75vh];
+  background: linear-gradient(to bottom, white, transparent);
+}
+#meteors .shower.ur { @apply rotate-45; }
+#meteors .shower.dr { @apply rotate-135; }
+#meteors .shower.dl { @apply rotate-225; }
+#meteors .shower.ul { @apply rotate-315; }

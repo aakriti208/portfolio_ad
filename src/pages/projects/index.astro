@@ -1,28 +1,325 @@
 ---
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
-import TopLayout from "@layouts/TopLayout.astro"
-import BottomLayout from "@layouts/BottomLayout.astro"
-import Projects from "@components/Projects"
 import { PROJECTS } from "@consts"
 
-const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
+const collection = (await getCollection("projects"))
+  .filter(p => !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 
-const tags = [...new Set(projects.flatMap(project => project.data.tags))]
-  .sort((a, b) => a.localeCompare(b))
+const projects = await Promise.all(
+  collection.map(async (p) => {
+    const { Content } = await p.render()
+    return { ...p, Content }
+  })
+)
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
-  <TopLayout>
-    <div class="animate page-heading">
-      {PROJECTS.TITLE}
+  <div class="pt-28 pb-24 projects-bg">
+    <div class="mx-auto max-w-screen-md px-5">
+
+      <!-- Header -->
+      <div class="animate mb-12">
+        <p class="cmd-prefix mb-2">$ ls -la products/</p>
+        <h1 class="page-title">Products &amp; Systems</h1>
+        <p class="page-subtitle mt-2">
+          Full case studies — problem, architecture, engineering decisions, and outcomes.
+          Click any card to expand.
+        </p>
+      </div>
+
+      <!-- Project cards -->
+      <div class="space-y-3">
+        {projects.map((project, i) => (
+          <details class="animate project-card" style={`animation-delay: ${i * 0.08}s`}>
+
+            <!-- ── COLLAPSED: summary ── -->
+            <summary class="project-summary">
+              <div class="summary-inner">
+                <!-- Left: expand indicator + title -->
+                <div class="summary-left">
+                  <span class="expand-icon" aria-hidden="true">[+]</span>
+                  <div>
+                    <h2 class="project-title">{project.data.title}</h2>
+                    {project.data.context && (
+                      <p class="project-context text-[10px]">{project.data.context}</p>
+                    )}
+                  </div>
+                </div>
+
+                <!-- Right: date + tag count -->
+                <div class="summary-right">
+                  <span class="project-date text-[10px]">
+                    {project.data.date.getFullYear?.() ?? project.data.date}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Pitch + stack (always visible) -->
+              <p class="project-pitch text-sm mt-3 mb-3">{project.data.summary}</p>
+              <div class="flex flex-wrap gap-1.5">
+                {project.data.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </summary>
+
+            <!-- ── EXPANDED: case study ── -->
+            <div class="case-study-grid">
+              <div class="case-study-inner">
+
+                <!-- Separator -->
+                <div class="case-separator"></div>
+
+                <!-- Links row -->
+                <div class="case-section case-links-row">
+                  {project.data.repoUrl && (
+                    <a href={project.data.repoUrl} target="_blank" rel="noopener noreferrer" class="case-link">
+                      [GitHub ↗]
+                    </a>
+                  )}
+                  {project.data.demoUrl && (
+                    <a href={project.data.demoUrl} target="_blank" rel="noopener noreferrer" class="case-link">
+                      [Live Demo ↗]
+                    </a>
+                  )}
+                  {project.data.paperUrl && (
+                    <a href={project.data.paperUrl} target="_blank" rel="noopener noreferrer" class="case-link">
+                      [Paper ↗]
+                    </a>
+                  )}
+                </div>
+
+                <!-- Problem Statement -->
+                {project.data.problem && (
+                  <section class="case-section">
+                    <h3 class="case-heading">// Problem Statement</h3>
+                    <p class="case-text text-sm leading-loose">{project.data.problem}</p>
+                  </section>
+                )}
+
+                <!-- Architecture -->
+                {project.data.architecture && (
+                  <section class="case-section">
+                    <h3 class="case-heading">// Architecture</h3>
+                    <pre class="arch-diagram">{project.data.architecture}</pre>
+                  </section>
+                )}
+
+                <!-- Architecture narrative (markdown body) -->
+                <section class="case-section">
+                  <h3 class="case-heading">// Notes</h3>
+                  <div class="case-prose">
+                    <article class="prose prose-sm max-w-none">
+                      <project.Content />
+                    </article>
+                  </div>
+                </section>
+
+                <!-- Engineering Challenges -->
+                {project.data.challenges && project.data.challenges.length > 0 && (
+                  <section class="case-section">
+                    <h3 class="case-heading">// Engineering Challenges</h3>
+                    <ul class="challenges-list">
+                      {project.data.challenges.map(c => (
+                        <li class="challenge-item">
+                          <span class="bullet-marker">&gt;</span>
+                          <span class="case-text text-sm">{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+
+                <!-- Live Metrics -->
+                {project.data.metrics && project.data.metrics.length > 0 && (
+                  <section class="case-section">
+                    <h3 class="case-heading">// Live Metrics</h3>
+                    <div class="metrics-grid">
+                      {project.data.metrics.map(m => (
+                        <div class="metric-card">
+                          <div class="metric-value">{m.value}</div>
+                          <div class="metric-label">{m.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+
     </div>
-  </TopLayout>
-  <BottomLayout>
-    <div class="animate">
-      <Projects client:load tags={tags} data={projects} />
-    </div>
-  </BottomLayout>
+  </div>
 </PageLayout>
+
+<style>
+  .projects-bg { background-color: var(--bg); }
+
+  .cmd-prefix {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--text-dim);
+  }
+  .page-title   { color: var(--cyan); font-size: 1.4rem; font-weight: 700; }
+  .page-subtitle { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
+  /* Card shell */
+  .project-card {
+    border: 1px solid var(--bg-border);
+    background-color: var(--bg-surface);
+    transition: border-color 0.2s;
+  }
+  .project-card[open] { border-color: color-mix(in srgb, var(--cyan) 30%, var(--bg-border)); }
+  .project-card:not([open]):hover { border-color: color-mix(in srgb, var(--cyan) 20%, var(--bg-border)); }
+
+  /* Hide native disclosure triangle */
+  .project-summary { list-style: none; cursor: pointer; padding: 1.1rem; }
+  .project-summary::-webkit-details-marker { display: none; }
+
+  .summary-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .summary-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex: 1;
+  }
+  .summary-right { flex-shrink: 0; }
+
+  .expand-icon {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    line-height: 1.6;
+    transition: color 0.2s;
+    min-width: 2.2ch;
+  }
+  .project-card[open] .expand-icon { color: var(--cyan); }
+
+  .project-title   { font-size: 0.95rem; font-weight: 700; color: #ffffff; line-height: 1.4; }
+  .project-context { color: var(--text-dim); margin-top: 1px; }
+  .project-date    { color: var(--text-dim); }
+  .project-pitch   { color: var(--text); }
+
+  .tag {
+    font-size: 9.5px;
+    border: 1px solid var(--bg-border);
+    color: var(--text-dim);
+    padding: 2px 6px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Expand animation using grid trick */
+  .case-study-grid {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.38s ease;
+  }
+  details[open] > .case-study-grid { grid-template-rows: 1fr; }
+  .case-study-inner { overflow: hidden; }
+
+  .case-separator {
+    height: 1px;
+    background-color: var(--bg-border);
+    margin: 0 1.1rem;
+  }
+
+  /* Case study sections */
+  .case-section {
+    padding: 1rem 1.1rem 0;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: none;
+  }
+  details[open] .case-section {
+    animation: case-reveal 0.35s ease forwards;
+  }
+  details[open] .case-section:nth-child(2) { animation-delay: 0.06s; }
+  details[open] .case-section:nth-child(3) { animation-delay: 0.12s; }
+  details[open] .case-section:nth-child(4) { animation-delay: 0.18s; }
+  details[open] .case-section:nth-child(5) { animation-delay: 0.24s; }
+  details[open] .case-section:nth-child(6) { animation-delay: 0.30s; }
+  details[open] .case-section:last-child   { padding-bottom: 1.1rem; }
+
+  @keyframes case-reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .case-heading {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--cyan);
+    margin-bottom: 0.6rem;
+  }
+  .case-text { color: var(--text); }
+
+  .case-links-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .case-link {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+    transition: opacity 0.18s;
+  }
+  .case-link:hover { opacity: 0.75; }
+
+  /* Architecture diagram */
+  .arch-diagram {
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    border: 1px solid var(--bg-border);
+    background-color: var(--bg);
+    padding: 0.85rem 1rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  /* Challenges */
+  .challenges-list { list-style: none; padding: 0; space-y: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .challenge-item  { display: flex; gap: 0.6rem; align-items: baseline; }
+  .bullet-marker   { color: var(--text-dim); font-size: 10px; flex-shrink: 0; }
+
+  /* Metrics */
+  .metrics-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .metric-card {
+    border: 1px solid var(--bg-border);
+    padding: 0.6rem 1rem;
+    min-width: 100px;
+    text-align: center;
+  }
+  .metric-value { font-size: 1.25rem; font-weight: 700; color: var(--cyan); line-height: 1.2; }
+  .metric-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim); margin-top: 3px; }
+
+  /* Prose override */
+  .case-prose { color: var(--text); }
+  .case-prose .prose { color: var(--text); }
+</style>
+
+<script is:inline>
+  (function () {
+    function initCards() {
+      document.querySelectorAll('.project-card').forEach(function (card) {
+        card.addEventListener('toggle', function () {
+          var icon = this.querySelector('.expand-icon')
+          if (icon) icon.textContent = this.open ? '[-]' : '[+]'
+        })
+      })
+    }
+    document.addEventListener('DOMContentLoaded', initCards)
+    document.addEventListener('astro:after-swap', initCards)
+  })()
+</script>

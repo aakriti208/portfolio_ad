@@ -1,0 +1,185 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+
+const PAGE = {
+  TITLE: "Experiments",
+  DESCRIPTION: "Exploratory work, side projects, and research threads — in various states of completion.",
+}
+
+// TODO: replace with real experiments
+const experiments = [
+  {
+    title: "[EXPERIMENT_TITLE]",
+    description: "[ONE_LINE_DESCRIPTION — what you're exploring and why]",
+    status: "ongoing",
+    link: "#",
+    date: "[DATE_OR_TIMEFRAME]",
+    tags: ["[TAG_1]", "[TAG_2]"],
+  },
+  {
+    title: "[EXPERIMENT_TITLE]",
+    description: "[ONE_LINE_DESCRIPTION]",
+    status: "complete",
+    link: "#",
+    date: "[DATE_OR_TIMEFRAME]",
+    tags: ["[TAG_1]", "[TAG_2]"],
+  },
+  {
+    title: "[EXPERIMENT_TITLE]",
+    description: "[ONE_LINE_DESCRIPTION]",
+    status: "abandoned",
+    link: "#",
+    date: "[DATE_OR_TIMEFRAME]",
+    tags: ["[TAG_1]"],
+  },
+  {
+    title: "[EXPERIMENT_TITLE]",
+    description: "[ONE_LINE_DESCRIPTION]",
+    status: "ongoing",
+    link: "#",
+    date: "[DATE_OR_TIMEFRAME]",
+    tags: ["[TAG_1]", "[TAG_2]", "[TAG_3]"],
+  },
+  {
+    title: "[EXPERIMENT_TITLE]",
+    description: "[ONE_LINE_DESCRIPTION]",
+    status: "complete",
+    link: "#",
+    date: "[DATE_OR_TIMEFRAME]",
+    tags: ["[TAG_1]"],
+  },
+  {
+    title: "[EXPERIMENT_TITLE]",
+    description: "[ONE_LINE_DESCRIPTION]",
+    status: "abandoned",
+    link: "#",
+    date: "[DATE_OR_TIMEFRAME]",
+    tags: ["[TAG_1]", "[TAG_2]"],
+  },
+]
+---
+
+<PageLayout title={PAGE.TITLE} description={PAGE.DESCRIPTION}>
+  <div class="pt-28 pb-24 exp-bg">
+    <div class="mx-auto max-w-screen-md px-5">
+
+      <!-- Header -->
+      <div class="animate mb-12">
+        <p class="cmd-prefix mb-2">$ ls -la experiments/</p>
+        <h1 class="page-title">Lab Notebook</h1>
+        <p class="page-subtitle mt-2">
+          Exploratory work in various states of completion. Some become projects. Some get abandoned. All are worth starting.
+        </p>
+      </div>
+
+      <!-- Status legend -->
+      <div class="animate flex flex-wrap gap-3 mb-10">
+        <span class="badge badge-ongoing">[ONGOING]</span>
+        <span class="badge badge-complete">[COMPLETE]</span>
+        <span class="badge badge-abandoned">[ABANDONED]</span>
+        <span class="legend-note">← filter coming soon</span>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {experiments.map((exp, i) => (
+          <a
+            href={exp.link}
+            class="animate exp-card group"
+            style={`animation-delay: ${i * 0.05}s`}
+            target={exp.link !== "#" ? "_blank" : undefined}
+            rel={exp.link !== "#" ? "noopener noreferrer" : undefined}
+          >
+            <!-- Status badge -->
+            <div class="flex items-start justify-between gap-2 mb-3">
+              <span class={`badge badge-${exp.status}`}>
+                [{exp.status.toUpperCase()}]
+              </span>
+              <span class="exp-date text-[10px]">{exp.date}</span>
+            </div>
+
+            <!-- Title -->
+            <h2 class="exp-title text-sm font-semibold mb-1.5 group-hover:text-[var(--cyan)] transition-colors duration-200">
+              {exp.title}
+            </h2>
+
+            <!-- Description -->
+            <p class="exp-desc text-xs leading-relaxed mb-3">
+              {exp.description}
+            </p>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-1.5">
+              {exp.tags.map(tag => (
+                <span class="exp-tag text-[10px]">{tag}</span>
+              ))}
+            </div>
+
+            <!-- Hover arrow -->
+            <div class="exp-arrow text-xs mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              → open
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Footnote -->
+      <p class="animate footnote text-[10px] mt-12 uppercase tracking-[0.2em]">
+        // not everything makes it to production. that's the point.
+      </p>
+
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .exp-bg { background-color: var(--bg); }
+
+  .cmd-prefix {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--text-dim);
+  }
+  .page-title   { color: var(--cyan); font-size: 1.4rem; font-weight: 700; }
+  .page-subtitle { font-size: 12px; color: var(--text-dim); line-height: 1.6; max-width: 48ch; }
+
+  /* Status badges */
+  .badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 2px 7px;
+    border: 1px solid;
+    display: inline-block;
+  }
+  .badge-ongoing  { border-color: var(--cyan); color: var(--cyan); }
+  .badge-complete { border-color: #22c55e;     color: #22c55e;     }
+  .badge-abandoned { border-color: var(--text-dim); color: var(--text-dim); }
+
+  .legend-note {
+    font-size: 10px;
+    color: var(--text-dim);
+    align-self: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* Cards */
+  .exp-card {
+    display: block;
+    padding: 1.1rem;
+    border: 1px solid var(--bg-border);
+    background-color: var(--bg-surface);
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .exp-card:hover { border-color: var(--bg-border); border-color: color-mix(in srgb, var(--cyan) 35%, var(--bg-border)); }
+
+  .exp-date  { color: var(--text-dim); }
+  .exp-title { color: var(--text); }
+  .exp-desc  { color: var(--text-dim); }
+  .exp-tag   { border: 1px solid var(--bg-border); color: var(--text-dim); padding: 1px 5px; }
+  .exp-arrow { color: var(--cyan); }
+
+  .footnote  { color: var(--text-dim); }
+</style>

@@ -1,13 +1,13 @@
 ---
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
-import TopLayout from "@layouts/TopLayout.astro"
-import BottomLayout from "@layouts/BottomLayout.astro"
 import { WORK } from "@consts"
 
 const collection = await getCollection("work")
-
-collection.sort((a, b) => new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime())
+collection.sort(
+  (a, b) =>
+    new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime()
+)
 
 const work = await Promise.all(
   collection.map(async (item) => {
@@ -18,42 +18,220 @@ const work = await Promise.all(
 
 function formatWorkDate(input: Date | string) {
   if (typeof input === "string") return input
-
-  const month = input.toLocaleDateString("en-US", {
-    month: "short",
-  })
-
+  const month = input.toLocaleDateString("en-US", { month: "short" })
   const year = new Date(input).getFullYear()
   return `${month} ${year}`
 }
 ---
 
 <PageLayout title={WORK.TITLE} description={WORK.DESCRIPTION}>
-  <TopLayout>
-    <div class="animate page-heading">
-      {WORK.TITLE}
+  <div class="pt-28 pb-24 work-bg">
+    <div class="mx-auto max-w-screen-sm px-5">
+
+      <!-- Header -->
+      <div class="animate mb-14">
+        <p class="cmd-prefix mb-2">$ cat experience/README.md</p>
+        <h1 class="page-title">Work Experience</h1>
+        <p class="page-subtitle mt-2">
+          Click any role to expand the full case study.
+        </p>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative">
+        <!-- Vertical track -->
+        <div class="timeline-track absolute left-0 top-2 bottom-2 w-px"></div>
+
+        <ul class="pl-7 space-y-4">
+          {work.map((entry, i) => (
+            <li class="animate relative" style={`animation-delay: ${i * 0.1}s`}>
+
+              <!-- Glowing dot -->
+              <div class="timeline-dot absolute -left-[29px] top-4 w-2 h-2 rounded-full"></div>
+
+              <!-- Accordion card -->
+              <details class="work-card">
+                <summary class="work-summary">
+
+                  <!-- Date -->
+                  <p class="entry-date text-[10px] uppercase tracking-[0.2em] mb-1">
+                    {formatWorkDate(entry.data.dateStart)} &mdash; {formatWorkDate(entry.data.dateEnd)}
+                  </p>
+
+                  <!-- Company + role -->
+                  <div class="flex items-start justify-between gap-2 flex-wrap">
+                    <div>
+                      <h2 class="entry-company text-base font-bold">
+                        {entry.data.company}
+                      </h2>
+                      <p class="entry-role text-xs font-semibold mt-0.5">
+                        {entry.data.role}
+                      </p>
+                    </div>
+                    <span class="expand-icon text-[10px]" aria-hidden="true">[+]</span>
+                  </div>
+
+                </summary>
+
+                <!-- Expanded case study -->
+                <div class="case-grid">
+                  <div class="case-inner">
+                    <div class="case-body">
+
+                      <!-- What I built -->
+                      <section class="case-section">
+                        <h3 class="case-heading">// What I built</h3>
+                        <div class="prose prose-sm max-w-none work-prose">
+                          <entry.Content />
+                        </div>
+                      </section>
+
+                      <!-- Impact placeholder -->
+                      <section class="case-section">
+                        <h3 class="case-heading">// Impact</h3>
+                        <ul class="impact-list">
+                          <li class="impact-item">
+                            <span class="bullet">&gt;</span>
+                            <span class="case-text text-sm">[IMPACT_1 — e.g. "Reduced API response time by 40% through query optimisation and caching"]</span>
+                          </li>
+                          <li class="impact-item">
+                            <span class="bullet">&gt;</span>
+                            <span class="case-text text-sm">[IMPACT_2 — measurable outcome]</span>
+                          </li>
+                          <li class="impact-item">
+                            <span class="bullet">&gt;</span>
+                            <span class="case-text text-sm">[IMPACT_3 — measurable outcome]</span>
+                          </li>
+                        </ul>
+                      </section>
+
+                      <!-- Stack placeholder -->
+                      <section class="case-section">
+                        <h3 class="case-heading">// Tools &amp; Stack</h3>
+                        <div class="flex flex-wrap gap-1.5">
+                          <span class="stack-tag">[TOOL_1]</span>
+                          <span class="stack-tag">[TOOL_2]</span>
+                          <span class="stack-tag">[TOOL_3]</span>
+                        </div>
+                      </section>
+
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </li>
+          ))}
+        </ul>
+      </div>
+
     </div>
-  </TopLayout>
-  <BottomLayout>
-    <ul>
-      { 
-        work.map((entry) => (
-          <li class="animate border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none">
-            <div class="text-sm uppercase mb-4">
-              {formatWorkDate(entry.data.dateStart)} - {formatWorkDate(entry.data.dateEnd)}
-            </div>
-            <div class="text-black dark:text-white font-semibold">
-              {entry.data.company}
-            </div>
-            <div class="text-sm font-semibold">
-              {entry.data.role}
-            </div>
-            <article class="prose dark:prose-invert">
-              <entry.Content />
-            </article>
-          </li>
-        ))
-      }
-    </ul>
-  </BottomLayout>
+  </div>
 </PageLayout>
+
+<style>
+  .work-bg { background-color: var(--bg); }
+
+  .cmd-prefix {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--text-dim);
+  }
+  .page-title   { color: var(--cyan); font-size: 1.4rem; font-weight: 700; }
+  .page-subtitle { font-size: 12px; color: var(--text-dim); }
+
+  /* Timeline */
+  .timeline-track { background-color: var(--bg-border); }
+  .timeline-dot {
+    background-color: var(--cyan);
+    box-shadow: 0 0 0 3px var(--bg), 0 0 8px var(--cyan);
+  }
+
+  /* Work card (accordion) */
+  .work-card { border: 1px solid var(--bg-border); background-color: var(--bg-surface); }
+  .work-card[open] { border-color: color-mix(in srgb, var(--cyan) 30%, var(--bg-border)); }
+
+  .work-summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1rem;
+    user-select: none;
+  }
+  .work-summary::-webkit-details-marker { display: none; }
+
+  .entry-date    { color: var(--text-dim); }
+  .entry-company { color: #ffffff; }
+  .entry-role    { color: var(--cyan); }
+
+  .expand-icon {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    line-height: 1.6;
+    transition: color 0.18s;
+  }
+  .work-card[open] .expand-icon { color: var(--cyan); }
+
+  /* Grid expand animation */
+  .case-grid { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.38s ease; }
+  details[open] > .case-grid { grid-template-rows: 1fr; }
+  .case-inner { overflow: hidden; }
+
+  .case-body {
+    padding: 0 1rem 1rem;
+    border-top: 1px solid var(--bg-border);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .case-section {}
+  .case-heading {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--cyan);
+    margin-bottom: 0.6rem;
+  }
+  .case-text { color: var(--text); }
+
+  /* Impact list */
+  .impact-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+  .impact-item { display: flex; gap: 0.6rem; align-items: baseline; }
+  .bullet      { color: var(--text-dim); font-size: 10px; flex-shrink: 0; }
+
+  /* Stack tags */
+  .stack-tag {
+    font-size: 9.5px;
+    border: 1px solid var(--bg-border);
+    color: var(--text-dim);
+    padding: 2px 7px;
+  }
+
+  /* Prose */
+  .work-prose {
+    --tw-prose-body:    var(--text);
+    --tw-prose-bullets: var(--text-dim);
+    --tw-prose-links:   var(--cyan);
+  }
+  .work-prose li { margin-top: 0.3rem; margin-bottom: 0.3rem; font-size: 13px; }
+  .work-prose li::marker { color: var(--text-dim); }
+</style>
+
+<script is:inline>
+  (function () {
+    function initWork() {
+      document.querySelectorAll('.work-card').forEach(function (card) {
+        card.addEventListener('toggle', function () {
+          var icon = this.querySelector('.expand-icon')
+          if (icon) icon.textContent = this.open ? '[-]' : '[+]'
+        })
+      })
+    }
+    document.addEventListener('DOMContentLoaded', initWork)
+    document.addEventListener('astro:after-swap', initWork)
+  })()
+</script>

@@ -1,0 +1,292 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+
+const PAGE = {
+  TITLE: "Resume",
+  DESCRIPTION: "Aakriti Dhakal — Software Engineer & Graduate Researcher",
+}
+
+// TODO: replace all placeholders with real content
+const skillGroups = [
+  {
+    category: "Languages",
+    skills: ["Python", "TypeScript", "JavaScript", "SQL", "[LANGUAGE_4]"],
+  },
+  {
+    category: "ML / AI",
+    skills: ["TensorFlow", "PyTorch", "Scikit-learn", "LangChain", "[ML_TOOL_4]"],
+  },
+  {
+    category: "Frameworks",
+    skills: ["React", "Node.js", "Next.js", "FastAPI", "Astro"],
+  },
+  {
+    category: "Tools",
+    skills: ["Git", "Docker", "Tableau", "Figma", "[TOOL_5]"],
+  },
+  {
+    category: "Cloud",
+    skills: ["AWS", "[CLOUD_SERVICE_2]", "[CLOUD_SERVICE_3]"],
+  },
+]
+
+const experience = [
+  {
+    company: "Texas State University",
+    role: "Graduate Research Assistant",
+    duration: "Jan 2025 – Present",
+    context: "NSF-funded STEM-CLEAR research project",
+    bullets: [
+      "Increased module completion rates by leveraging Canvas analytics and optimising content delivery strategies",
+      "Visualised student engagement trends using Tableau, creating interactive dashboards for academic stakeholders",
+      "[EXPERIENCE_BULLET_3]",
+    ],
+  },
+  {
+    company: "Heubert Technologies",
+    role: "Software Engineer",
+    duration: "May 2021 – Dec 2023",
+    context: "Enterprise SaaS CRM platform",
+    bullets: [
+      "Built scalable RESTful APIs using NestJS and Express for a CRM serving [USER_COUNT] users",
+      "Led frontend development with TypeScript, ReactJS, Ant Design, and Redux, improving lead generation flow",
+      "Optimised API performance through database indexing and caching, reducing response time by [METRIC_PLACEHOLDER]",
+      "Implemented automated testing pipelines to reduce production bugs",
+    ],
+  },
+  {
+    company: "NEEF",
+    role: "Junior Frontend Developer",
+    duration: "Feb 2019 – Apr 2021",
+    context: "[COMPANY_CONTEXT]",
+    bullets: [
+      "Upgraded legacy React codebase, improving UI responsiveness and increasing user retention by [METRIC_PLACEHOLDER]",
+      "Developed and maintained production-ready client websites using HTML, CSS, Sass, and JavaScript",
+      "Conducted cross-browser QA testing to ensure mobile responsiveness",
+    ],
+  },
+]
+
+const education = [
+  {
+    degree: "M.S. Computer Science",
+    institution: "Texas State University",
+    period: "Jan 2024 – Present",
+    coursework: "[RELEVANT_COURSEWORK — e.g. Machine Learning, Algorithms, Database Systems]",
+  },
+  {
+    degree: "B.E. Computer Engineering",
+    institution: "Tribhuvan University",
+    period: "Nov 2017 – Nov 2021",
+    coursework: "[RELEVANT_COURSEWORK]",
+  },
+]
+---
+
+<PageLayout title={PAGE.TITLE} description={PAGE.DESCRIPTION}>
+  <div class="pt-24 pb-20 resume-bg">
+
+    <!-- Sticky download button -->
+    <div class="fixed top-16 right-4 z-40 print:hidden">
+      <a
+        href="/resume.pdf"
+        download
+        class="download-btn text-[9.5px] uppercase tracking-[0.15em] px-3 py-1.5 flex items-center gap-1.5"
+        title="TODO: add your resume.pdf to /public/"
+      >
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        PDF
+      </a>
+    </div>
+
+    <div class="max-w-2xl mx-auto px-5">
+
+      <!-- ── Header ──────────────────────────────────── -->
+      <section class="animate resume-header mb-10">
+        <h1 class="name-heading">Aakriti Dhakal</h1>
+        <p class="name-role mt-1">Software Engineer &amp; Graduate Researcher</p>
+        <div class="contact-row flex flex-wrap gap-x-5 gap-y-1 mt-3 text-[11px]">
+          <a href="mailto:aakritidh208@gmail.com" class="contact-link">aakritidh208@gmail.com</a>
+          <a href="https://github.com/aakriti208" target="_blank" class="contact-link">github.com/aakriti208</a>
+          <a href="https://www.linkedin.com/in/aakriti-dhakal/" target="_blank" class="contact-link">linkedin.com/in/aakriti-dhakal</a>
+          <span class="contact-plain">San Marcos, TX</span>
+        </div>
+      </section>
+
+      <!-- ── Divider ─────────────────────────────────── -->
+      <div class="resume-divider mb-8"></div>
+
+      <!-- ── Experience ─────────────────────────────── -->
+      <section class="animate resume-section mb-10">
+        <h2 class="section-heading">Experience</h2>
+        <div class="space-y-7">
+          {experience.map((job) => (
+            <div class="job-block">
+              <div class="flex items-start justify-between flex-wrap gap-1 mb-0.5">
+                <div>
+                  <span class="job-company">{job.company}</span>
+                  <span class="job-dot"> · </span>
+                  <span class="job-role">{job.role}</span>
+                </div>
+                <span class="job-duration text-[10px]">{job.duration}</span>
+              </div>
+              {job.context && (
+                <p class="job-context text-[10px] mb-2">{job.context}</p>
+              )}
+              <ul class="bullet-list">
+                {job.bullets.map(b => (
+                  <li class="bullet-item">
+                    <span class="bullet-arrow">&gt;</span>
+                    <span class="bullet-text text-sm">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── Education ───────────────────────────────── -->
+      <section class="animate resume-section mb-10">
+        <h2 class="section-heading">Education</h2>
+        <div class="space-y-5">
+          {education.map(edu => (
+            <div class="edu-block">
+              <div class="flex items-start justify-between flex-wrap gap-1">
+                <div>
+                  <p class="edu-degree">{edu.degree}</p>
+                  <p class="edu-institution">{edu.institution}</p>
+                </div>
+                <span class="edu-period text-[10px]">{edu.period}</span>
+              </div>
+              {edu.coursework && (
+                <p class="edu-coursework text-[11px] mt-1">{edu.coursework}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── Skills ──────────────────────────────────── -->
+      <section class="animate resume-section mb-10">
+        <h2 class="section-heading">Skills</h2>
+        <div class="skills-grid">
+          {skillGroups.map(group => (
+            <div class="skill-group">
+              <p class="skill-category">{group.category}</p>
+              <div class="flex flex-wrap gap-1.5 mt-1.5">
+                {group.skills.map(skill => (
+                  <span class="skill-tag">{skill}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── Publications / Research (optional) ─────── -->
+      <section class="animate resume-section">
+        <h2 class="section-heading">Research &amp; Publications</h2>
+        <div class="space-y-3">
+          <div class="pub-block">
+            <p class="pub-title">[PUBLICATION_TITLE or RESEARCH_PROJECT_TITLE]</p>
+            <p class="pub-venue text-[10px]">[VENUE / CONFERENCE / JOURNAL] · [YEAR]</p>
+            <p class="pub-desc text-[11px] mt-1">[BRIEF_DESCRIPTION_OR_ABSTRACT_EXCERPT]</p>
+          </div>
+          <!-- Add more publications here. Remove section if not applicable. -->
+        </div>
+      </section>
+
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .resume-bg { background-color: var(--bg); }
+
+  /* Download button */
+  .download-btn {
+    border: 1px solid var(--bg-border);
+    background-color: var(--bg-surface);
+    color: var(--text-dim);
+    transition: border-color 0.18s, color 0.18s;
+    cursor: pointer;
+  }
+  .download-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* Header */
+  .resume-header {}
+  .name-heading { font-size: 1.6rem; font-weight: 700; color: #ffffff; line-height: 1.2; }
+  .name-role    { font-size: 12px; color: var(--cyan); font-weight: 600; }
+  .contact-row  {}
+  .contact-link { color: var(--text-dim); transition: color 0.18s; }
+  .contact-link:hover { color: var(--cyan); }
+  .contact-plain { color: var(--text-dim); }
+
+  .resume-divider { height: 1px; background-color: var(--bg-border); }
+
+  /* Sections */
+  .section-heading {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--cyan);
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--bg-border);
+  }
+  .section-heading::before { content: '// '; color: var(--text-dim); }
+
+  /* Experience */
+  .job-company  { font-weight: 700; color: #ffffff; font-size: 13px; }
+  .job-dot      { color: var(--text-dim); }
+  .job-role     { color: var(--cyan); font-size: 12px; font-weight: 600; }
+  .job-duration { color: var(--text-dim); }
+  .job-context  { color: var(--text-dim); }
+
+  .bullet-list  { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+  .bullet-item  { display: flex; gap: 0.6rem; align-items: baseline; }
+  .bullet-arrow { color: var(--text-dim); font-size: 10px; flex-shrink: 0; }
+  .bullet-text  { color: var(--text); line-height: 1.55; }
+
+  /* Education */
+  .edu-degree      { font-size: 13px; font-weight: 600; color: #ffffff; }
+  .edu-institution { font-size: 11px; color: var(--cyan); }
+  .edu-period      { color: var(--text-dim); }
+  .edu-coursework  { color: var(--text-dim); }
+
+  /* Skills */
+  .skills-grid { display: flex; flex-direction: column; gap: 0.9rem; }
+  .skill-category { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-dim); }
+  .skill-tag {
+    font-size: 10.5px;
+    border: 1px solid var(--bg-border);
+    color: var(--text-dim);
+    padding: 2px 7px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .skill-tag:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* Publications */
+  .pub-title  { font-size: 13px; font-weight: 600; color: var(--text); }
+  .pub-venue  { color: var(--text-dim); }
+  .pub-desc   { color: var(--text-dim); line-height: 1.55; }
+
+  /* ── Print styles ──────────────────────────────────────── */
+  @media print {
+    header, footer, .download-btn { display: none !important; }
+    .resume-bg { background: white !important; padding-top: 1rem !important; }
+    .name-heading, .edu-degree, .job-company { color: #000 !important; }
+    .name-role, .edu-institution, .job-role, .section-heading { color: #b45309 !important; }
+    .bullet-text, .pub-title { color: #222 !important; }
+    .contact-link, .contact-plain, .job-duration, .edu-period,
+    .pub-venue, .pub-desc, .job-context, .edu-coursework,
+    .bullet-arrow, .skill-category, .job-dot { color: #666 !important; }
+    .skill-tag { border-color: #ccc !important; color: #555 !important; }
+    .resume-divider, .section-heading { border-color: #ddd !important; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
