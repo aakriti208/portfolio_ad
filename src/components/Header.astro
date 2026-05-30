@@ -49,12 +49,38 @@ import Container from "@components/Container.astro"
         }
       </nav>
 
-      <!-- Mobile toggle -->
-      <div class="ml-auto flex items-center md:hidden">
+      <!-- Right: theme toggle + mobile nav toggle -->
+      <div class="ml-auto flex items-center gap-1">
+        <!-- Theme toggle -->
+        <button
+          id="header-theme-button"
+          aria-label="Toggle theme"
+          class="flex items-center justify-center size-8 transition-colors duration-200 theme-toggle"
+          style="color: var(--text-dim)"
+        >
+          <!-- Sun: shown in dark mode, click → go light -->
+          <svg id="theme-sun" class="size-[16px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="4"/>
+            <line x1="12" y1="20" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="4" y2="12"/>
+            <line x1="20" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- Moon: shown in light mode, click → go dark -->
+          <svg id="theme-moon" class="size-[16px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
+        <!-- Mobile hamburger -->
         <button
           id="header-drawer-button"
           aria-label="Toggle menu"
-          class="flex items-center justify-center size-8 transition-colors duration-200"
+          class="flex items-center justify-center size-8 transition-colors duration-200 md:hidden"
           style="color: var(--text-dim)"
         >
           <svg id="drawer-open" class="size-[18px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -83,6 +109,13 @@ import Container from "@components/Container.astro"
   #header-drawer-button > #drawer-close { @apply hidden; }
   #header-drawer-button.open > #drawer-open  { @apply hidden; }
   #header-drawer-button.open > #drawer-close { @apply block; }
+
+  /* Theme icon visibility */
+  :global(.dark) #theme-sun  { display: block; }
+  :global(.dark) #theme-moon { display: none; }
+  :global(html:not(.dark)) #theme-sun  { display: none; }
+  :global(html:not(.dark)) #theme-moon { display: block; }
+  .theme-toggle:hover { color: var(--text); }
 </style>
 
 <script is:inline>

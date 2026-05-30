@@ -29,10 +29,14 @@ function changeTheme() {
 }
 
 function preloadTheme() {
-  // Always force dark — this site uses a terminal aesthetic
   const element = document.documentElement
-  element.classList.add("dark")
-  localStorage.theme = "dark"
+  const theme = localStorage.theme === "light" ? "light" : "dark"
+  if (theme === "dark") {
+    element.classList.add("dark")
+  } else {
+    element.classList.remove("dark")
+  }
+  localStorage.theme = theme
 }
 
 window.onload = () => {
