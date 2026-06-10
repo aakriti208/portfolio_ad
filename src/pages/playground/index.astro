@@ -1,10 +1,11 @@
 ---
-import PageLayout from "@layouts/PageLayout.astro"
+import PageLayout from "@layouts/PageLayout.astro";
 
 const PAGE = {
   TITLE: "Playground",
-  DESCRIPTION: "Ask an AI assistant anything about Aakriti's work, projects, and background.",
-}
+  DESCRIPTION:
+    "Ask an AI assistant anything about Aakriti's work, projects, and background.",
+};
 
 const STARTER_QUESTIONS = [
   "What has she built?",
@@ -13,12 +14,14 @@ const STARTER_QUESTIONS = [
   "What's her tech stack?",
   "What is she researching?",
   "How can I contact her?",
-]
+];
 ---
 
 <PageLayout title={PAGE.TITLE} description={PAGE.DESCRIPTION}>
-  <div class="pt-14 playground-layout flex flex-col" style="height: 100dvh; height: 100vh;">
-
+  <div
+    class="pt-14 playground-layout flex flex-col"
+    style="height: 100dvh; height: 100vh;"
+  >
     <!-- Terminal title bar -->
     <div class="titlebar flex items-center gap-2.5 px-4 py-2.5 shrink-0">
       <div class="flex gap-1.5">
@@ -26,42 +29,54 @@ const STARTER_QUESTIONS = [
         <span class="dot dot-yellow"></span>
         <span class="dot dot-green"></span>
       </div>
-      <span class="titlebar-text text-[10px] uppercase tracking-[0.25em] mx-auto">
+      <span
+        class="titlebar-text text-[10px] uppercase tracking-[0.25em] mx-auto"
+      >
         aakriti-assistant — interactive session
       </span>
     </div>
 
     <!-- Messages area -->
-    <div id="messages" class="flex-1 overflow-y-auto px-4 sm:px-8 py-5 space-y-4 messages-area">
-
+    <div
+      id="messages"
+      class="flex-1 overflow-y-auto px-4 sm:px-8 py-5 space-y-4 messages-area"
+    >
       <!-- Boot messages -->
       <div class="msg-system">
         <span class="sys-prefix">sys</span>
-        <span class="sys-text">Connected to <span class="accent">aakriti-assistant</span> · powered by Claude</span>
+        <span class="sys-text"
+          >Connected to <span class="accent">aakriti-assistant</span> · powered by
+          Claude</span
+        >
       </div>
       <div class="msg-system">
         <span class="sys-prefix">sys</span>
-        <span class="sys-text">Responses are AI-generated based on Aakriti's actual work and background.</span>
+        <span class="sys-text"
+          >Responses are AI-generated based on Aakriti's actual work and
+          background.</span
+        >
       </div>
 
       <!-- Assistant greeting -->
       <div class="msg-assistant">
         <span class="assistant-prefix">Aakriti:~$</span>
         <span class="msg-text">
-          Hey! I'm an AI assistant that knows about Aakriti's projects, research, and engineering work.
-          Ask me anything — or try one of the suggested questions below.
+          Hey! I'm an AI assistant that knows about Aakriti's projects,
+          research, and engineering work. Ask me anything — or try one of the
+          suggested questions below.
         </span>
       </div>
 
       <!-- Starter chips -->
       <div id="starter-chips" class="flex flex-wrap gap-2 pt-1">
-        {STARTER_QUESTIONS.map(q => (
-          <button class="starter-chip" data-question={q}>
-            {q}
-          </button>
-        ))}
+        {
+          STARTER_QUESTIONS.map((q) => (
+            <button class="starter-chip" data-question={q}>
+              {q}
+            </button>
+          ))
+        }
       </div>
-
     </div>
 
     <!-- Input bar -->
@@ -76,39 +91,76 @@ const STARTER_QUESTIONS = [
           placeholder="ask me anything about Aakriti..."
           class="chat-input flex-1 bg-transparent outline-none border-none text-sm"
         />
-        <button id="send-btn" class="send-btn text-[10px] uppercase tracking-[0.15em] px-3 py-1.5 shrink-0">
+        <button
+          id="send-btn"
+          class="send-btn text-[10px] uppercase tracking-[0.15em] px-3 py-1.5 shrink-0"
+        >
           send
         </button>
       </div>
     </div>
-
   </div>
 </PageLayout>
 
 <style>
   /* Layout */
-  .playground-layout { background-color: var(--bg); overflow: hidden; }
-  .messages-area { background-color: var(--bg); }
+  .playground-layout {
+    background-color: var(--bg);
+    overflow: hidden;
+  }
+  .messages-area {
+    background-color: var(--bg);
+  }
 
   /* Title bar */
   .titlebar {
     background-color: var(--bg-surface);
     border-bottom: 1px solid var(--bg-border);
   }
-  .titlebar-text { color: var(--text-dim); }
-  .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; }
-  .dot-red    { background-color: #ff5f57; }
-  .dot-yellow { background-color: #febc2e; }
-  .dot-green  { background-color: #28c840; }
+  .titlebar-text {
+    color: var(--text-dim);
+  }
+  .dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+  .dot-red {
+    background-color: #ff5f57;
+  }
+  .dot-yellow {
+    background-color: #febc2e;
+  }
+  .dot-green {
+    background-color: #28c840;
+  }
 
   /* System messages */
-  .msg-system { display: flex; gap: 0.75rem; align-items: baseline; }
-  .sys-prefix { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-dim); flex-shrink: 0; }
-  .sys-text   { font-size: 11.5px; color: var(--text-dim); line-height: 1.55; }
-  .accent { color: var(--cyan); }
+  .msg-system {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+  .sys-prefix {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .sys-text {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+  .accent {
+    color: var(--cyan);
+  }
 
   /* Chat messages */
-  .msg-assistant, .msg-user {
+  .msg-assistant,
+  .msg-user {
     display: flex;
     gap: 0.75rem;
     align-items: baseline;
@@ -143,7 +195,9 @@ const STARTER_QUESTIONS = [
     background: transparent;
     cursor: pointer;
     font-family: inherit;
-    transition: border-color 0.18s, color 0.18s;
+    transition:
+      border-color 0.18s,
+      color 0.18s;
     text-align: left;
   }
   .starter-chip:hover {
@@ -152,33 +206,62 @@ const STARTER_QUESTIONS = [
   }
 
   /* Typing indicator */
-  .typing-dots { display: inline-flex; gap: 4px; align-items: center; }
+  .typing-dots {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
   .typing-dot {
-    width: 5px; height: 5px; border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
     background-color: var(--cyan);
     animation: dot-bounce 1.2s ease-in-out infinite;
   }
-  .typing-dot:nth-child(2) { animation-delay: 0.18s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.36s; }
+  .typing-dot:nth-child(2) {
+    animation-delay: 0.18s;
+  }
+  .typing-dot:nth-child(3) {
+    animation-delay: 0.36s;
+  }
   @keyframes dot-bounce {
-    0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
-    40%            { transform: translateY(-5px); opacity: 1; }
+    0%,
+    80%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    40% {
+      transform: translateY(-5px);
+      opacity: 1;
+    }
   }
 
   /* Error message */
-  .msg-error { color: #f87171; }
+  .msg-error {
+    color: #f87171;
+  }
 
   /* Input bar */
-  .input-bar   { background-color: var(--bg-surface); border-top: 1px solid var(--bg-border); }
-  .input-inner { }
-  .input-prompt { color: var(--cyan); font-size: 14px; }
+  .input-bar {
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--bg-border);
+  }
+  .input-inner {
+  }
+  .input-prompt {
+    color: var(--cyan);
+    font-size: 14px;
+  }
   .chat-input {
     color: var(--text);
     caret-color: var(--cyan);
     font-family: inherit;
     font-size: 13px;
   }
-  .chat-input::placeholder { color: var(--text-dim); }
+  .chat-input::placeholder {
+    color: var(--text-dim);
+  }
 
   .send-btn {
     border: 1px solid var(--bg-border);
@@ -186,145 +269,169 @@ const STARTER_QUESTIONS = [
     background: transparent;
     cursor: pointer;
     font-family: inherit;
-    transition: border-color 0.18s, color 0.18s;
+    transition:
+      border-color 0.18s,
+      color 0.18s;
   }
-  .send-btn:hover { border-color: var(--cyan); color: var(--cyan); }
-  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .send-btn:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+  .send-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 
   /* Scrollbar */
-  .messages-area::-webkit-scrollbar { width: 3px; }
-  .messages-area::-webkit-scrollbar-track { background: transparent; }
-  .messages-area::-webkit-scrollbar-thumb { background-color: var(--bg-border); border-radius: 2px; }
+  .messages-area::-webkit-scrollbar {
+    width: 3px;
+  }
+  .messages-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .messages-area::-webkit-scrollbar-thumb {
+    background-color: var(--bg-border);
+    border-radius: 2px;
+  }
 </style>
 
 <script is:inline>
-  ;(function () {
-    var history = []   // { role: 'user'|'assistant', content: string }[]
-    var sending = false
+  (function () {
+    var history = []; // { role: 'user'|'assistant', content: string }[]
+    var sending = false;
 
     function scrollBottom() {
-      var el = document.getElementById('messages')
-      if (el) el.scrollTop = el.scrollHeight
+      var el = document.getElementById("messages");
+      if (el) el.scrollTop = el.scrollHeight;
     }
 
     function appendMsg(prefixClass, prefix, textClass, text) {
-      var msgs = document.getElementById('messages')
-      if (!msgs) return
-      var row = document.createElement('div')
-      row.className = textClass === 'msg-error' ? 'msg-assistant' : (prefix === '>' ? 'msg-user' : 'msg-assistant')
-      var p = document.createElement('span')
-      p.className = prefixClass
-      p.textContent = prefix
-      var t = document.createElement('span')
-      t.className = 'msg-text ' + (textClass || '')
-      t.textContent = text
-      row.appendChild(p)
-      row.appendChild(t)
-      msgs.appendChild(row)
-      scrollBottom()
+      var msgs = document.getElementById("messages");
+      if (!msgs) return;
+      var row = document.createElement("div");
+      row.className =
+        textClass === "msg-error"
+          ? "msg-assistant"
+          : prefix === ">"
+            ? "msg-user"
+            : "msg-assistant";
+      var p = document.createElement("span");
+      p.className = prefixClass;
+      p.textContent = prefix;
+      var t = document.createElement("span");
+      t.className = "msg-text " + (textClass || "");
+      t.textContent = text;
+      row.appendChild(p);
+      row.appendChild(t);
+      msgs.appendChild(row);
+      scrollBottom();
     }
 
     function showTyping() {
-      var msgs = document.getElementById('messages')
-      if (!msgs) return null
-      var row = document.createElement('div')
-      row.className = 'msg-assistant'
-      row.id = 'typing-row'
-      var p = document.createElement('span')
-      p.className = 'assistant-prefix'
-      p.textContent = 'Aakriti:~$'
-      var dots = document.createElement('span')
-      dots.className = 'msg-text'
-      dots.innerHTML = '<span class="typing-dots"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>'
-      row.appendChild(p)
-      row.appendChild(dots)
-      msgs.appendChild(row)
-      scrollBottom()
-      return row
+      var msgs = document.getElementById("messages");
+      if (!msgs) return null;
+      var row = document.createElement("div");
+      row.className = "msg-assistant";
+      row.id = "typing-row";
+      var p = document.createElement("span");
+      p.className = "assistant-prefix";
+      p.textContent = "Aakriti:~$";
+      var dots = document.createElement("span");
+      dots.className = "msg-text";
+      dots.innerHTML =
+        '<span class="typing-dots"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>';
+      row.appendChild(p);
+      row.appendChild(dots);
+      msgs.appendChild(row);
+      scrollBottom();
+      return row;
     }
 
     function removeChips() {
-      var chips = document.getElementById('starter-chips')
-      if (chips) chips.remove()
+      var chips = document.getElementById("starter-chips");
+      if (chips) chips.remove();
+    }
+
+    function fallbackResponse() {
+      return "I'm still getting to know Aakriti. She's busy filling my brain with stories, skills, and a little bit of personality. Check back soon!";
     }
 
     async function send(text) {
-      if (sending || !text || !text.trim()) return
-      sending = true
+      if (sending || !text || !text.trim()) return;
+      sending = true;
 
-      var input   = document.getElementById('chat-input')
-      var sendBtn = document.getElementById('send-btn')
-      if (input)   input.value = ''
-      if (sendBtn) sendBtn.disabled = true
+      var input = document.getElementById("chat-input");
+      var sendBtn = document.getElementById("send-btn");
+      if (input) input.value = "";
+      if (sendBtn) sendBtn.disabled = true;
 
-      removeChips()
-      appendMsg('user-prefix', 'you:~$', '', text)
-      history.push({ role: 'user', content: text })
+      removeChips();
+      appendMsg("user-prefix", "you:~$", "", text);
+      history.push({ role: "user", content: text });
 
-      var typingRow = showTyping()
+      var typingRow = showTyping();
 
       try {
-        var res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        var res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: text, history: history.slice(-10) }),
-        })
+        });
 
-        if (typingRow) typingRow.remove()
+        if (typingRow) typingRow.remove();
 
-        var data = await res.json()
+        var data = await res.json();
 
         if (!res.ok || data.error) {
-          appendMsg('assistant-prefix', 'Aakriti:~$', 'msg-error', 'Error: ' + (data.error || 'Unknown error. Check your API configuration.'))
+          appendMsg("assistant-prefix", "Aakriti:~$", "", fallbackResponse());
         } else {
-          appendMsg('assistant-prefix', 'Aakriti:~$', '', data.response)
-          history.push({ role: 'assistant', content: data.response })
+          appendMsg("assistant-prefix", "Aakriti:~$", "", data.response);
+          history.push({ role: "assistant", content: data.response });
         }
       } catch (err) {
-        if (typingRow) typingRow.remove()
-        appendMsg('assistant-prefix', 'Aakriti:~$', 'msg-error',
-          'Could not reach /api/chat. Make sure the server is running with SSR enabled and ANTHROPIC_API_KEY is set.')
+        if (typingRow) typingRow.remove();
+        appendMsg("assistant-prefix", "Aakriti:~$", "", fallbackResponse());
       }
 
-      sending = false
-      if (sendBtn) sendBtn.disabled = false
-      if (input)   input.focus()
+      sending = false;
+      if (sendBtn) sendBtn.disabled = false;
+      if (input) input.focus();
     }
 
     function init() {
-      var input   = document.getElementById('chat-input')
-      var sendBtn = document.getElementById('send-btn')
+      var input = document.getElementById("chat-input");
+      var sendBtn = document.getElementById("send-btn");
 
       if (input) {
-        input.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault()
-            send(this.value.trim())
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            send(this.value.trim());
           }
-        })
+        });
       }
 
       if (sendBtn) {
-        sendBtn.addEventListener('click', function () {
-          var input = document.getElementById('chat-input')
-          if (input) send(input.value.trim())
-        })
+        sendBtn.addEventListener("click", function () {
+          var input = document.getElementById("chat-input");
+          if (input) send(input.value.trim());
+        });
       }
 
       // Starter chips
-      document.querySelectorAll('.starter-chip').forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          send(this.getAttribute('data-question') || '')
-        })
-      })
+      document.querySelectorAll(".starter-chip").forEach(function (chip) {
+        chip.addEventListener("click", function () {
+          send(this.getAttribute("data-question") || "");
+        });
+      });
 
-      scrollBottom()
+      scrollBottom();
     }
 
-    document.addEventListener('DOMContentLoaded', init)
-    document.addEventListener('astro:after-swap', function () {
-      history = []
-      init()
-    })
-  })()
+    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("astro:after-swap", function () {
+      history = [];
+      init();
+    });
+  })();
 </script>

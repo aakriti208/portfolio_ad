@@ -6,21 +6,35 @@
 <!-- FAB toggle button -->
 <button id="cw-toggle" aria-label="Ask Aakriti AI" title="Ask Aakriti AI">
   <span id="cw-icon-open">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+    >
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+      ></path>
     </svg>
   </span>
   <span id="cw-icon-close" style="display:none">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>
   </span>
 </button>
 
 <!-- Chat panel -->
 <div id="cw-panel" aria-hidden="true">
-
   <!-- Panel header -->
   <div id="cw-header">
     <div class="cw-dots">
@@ -39,7 +53,9 @@
     </div>
     <div class="cw-msg-bot">
       <span class="cw-bot-label">Aakriti:~$</span>
-      <span>Hey! Ask me anything about Aakriti's work, projects, or background.</span>
+      <span
+        >Hey! Ask me anything about Aakriti's work, projects, or background.</span
+      >
     </div>
   </div>
 
@@ -55,7 +71,6 @@
     />
     <button id="cw-send">send</button>
   </div>
-
 </div>
 
 <style>
@@ -75,13 +90,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.18s, box-shadow 0.18s;
+    transition:
+      background 0.18s,
+      box-shadow 0.18s;
     font-family: inherit;
-    box-shadow: 0 0 14px rgba(0,245,255,0.18);
+    box-shadow: 0 0 14px rgba(0, 245, 255, 0.18);
   }
   #cw-toggle:hover {
-    background: rgba(0,245,255,0.08);
-    box-shadow: 0 0 22px rgba(0,245,255,0.32);
+    background: rgba(0, 245, 255, 0.08);
+    box-shadow: 0 0 22px rgba(0, 245, 255, 0.32);
   }
 
   /* ── Panel ── */
@@ -103,7 +120,9 @@
     opacity: 0;
     pointer-events: none;
     transform: translateY(10px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
   #cw-panel.open {
     opacity: 1;
@@ -121,8 +140,16 @@
     border-bottom: 1px solid var(--bg-border, #222);
     flex-shrink: 0;
   }
-  .cw-dots { display: flex; gap: 5px; }
-  .cw-dot  { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .cw-dots {
+    display: flex;
+    gap: 5px;
+  }
+  .cw-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
   #cw-title {
     font-size: 9.5px;
     text-transform: uppercase;
@@ -141,8 +168,13 @@
     flex-direction: column;
     gap: 10px;
   }
-  #cw-messages::-webkit-scrollbar { width: 3px; }
-  #cw-messages::-webkit-scrollbar-thumb { background: var(--bg-border, #222); border-radius: 2px; }
+  #cw-messages::-webkit-scrollbar {
+    width: 3px;
+  }
+  #cw-messages::-webkit-scrollbar-thumb {
+    background: var(--bg-border, #222);
+    border-radius: 2px;
+  }
 
   .cw-msg-sys {
     display: flex;
@@ -162,7 +194,8 @@
     line-height: 1.5;
   }
 
-  .cw-msg-bot, .cw-msg-user {
+  .cw-msg-bot,
+  .cw-msg-user {
     display: flex;
     gap: 8px;
     align-items: baseline;
@@ -186,20 +219,40 @@
     color: var(--text, #e0e0e0);
     line-height: 1.6;
   }
-  .cw-msg-err { color: #f87171 !important; }
+  .cw-msg-err {
+    color: #f87171 !important;
+  }
 
   /* Typing dots */
-  .cw-typing { display: inline-flex; gap: 4px; align-items: center; }
+  .cw-typing {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
   .cw-dot-anim {
-    width: 4px; height: 4px; border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
     background: var(--cyan);
     animation: cw-bounce 1.2s ease-in-out infinite;
   }
-  .cw-dot-anim:nth-child(2) { animation-delay: 0.18s; }
-  .cw-dot-anim:nth-child(3) { animation-delay: 0.36s; }
+  .cw-dot-anim:nth-child(2) {
+    animation-delay: 0.18s;
+  }
+  .cw-dot-anim:nth-child(3) {
+    animation-delay: 0.36s;
+  }
   @keyframes cw-bounce {
-    0%,80%,100% { transform:translateY(0); opacity:0.4; }
-    40%          { transform:translateY(-4px); opacity:1; }
+    0%,
+    80%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    40% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
   }
 
   /* Input bar */
@@ -212,7 +265,10 @@
     border-top: 1px solid var(--bg-border, #222);
     flex-shrink: 0;
   }
-  #cw-prompt { color: var(--cyan); font-size: 13px; }
+  #cw-prompt {
+    color: var(--cyan);
+    font-size: 13px;
+  }
   #cw-input {
     flex: 1;
     background: transparent;
@@ -223,7 +279,9 @@
     font-family: inherit;
     font-size: 12.5px;
   }
-  #cw-input::placeholder { color: var(--text-dim, #555); }
+  #cw-input::placeholder {
+    color: var(--text-dim, #555);
+  }
   #cw-send {
     font-size: 9.5px;
     text-transform: uppercase;
@@ -234,177 +292,204 @@
     padding: 3px 8px;
     cursor: pointer;
     font-family: inherit;
-    transition: border-color 0.18s, color 0.18s;
+    transition:
+      border-color 0.18s,
+      color 0.18s;
     flex-shrink: 0;
   }
-  #cw-send:hover { border-color: var(--cyan); color: var(--cyan); }
-  #cw-send:disabled { opacity: 0.4; cursor: not-allowed; }
+  #cw-send:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+  #cw-send:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 
   /* Hide on playground — it has a full-page chat */
   #cw-toggle.cw-hidden,
-  #cw-panel.cw-hidden { display: none !important; }
+  #cw-panel.cw-hidden {
+    display: none !important;
+  }
 </style>
 
 <script is:inline>
-;(function () {
-  var history = []
-  var sending = false
-  var open = false
+  (function () {
+    var history = [];
+    var sending = false;
+    var open = false;
 
-  function toggle() {
-    open = !open
-    var panel   = document.getElementById('cw-panel')
-    var iconO   = document.getElementById('cw-icon-open')
-    var iconC   = document.getElementById('cw-icon-close')
-    if (!panel) return
-    if (open) {
-      panel.classList.add('open')
-      panel.setAttribute('aria-hidden', 'false')
-      iconO.style.display = 'none'
-      iconC.style.display = 'flex'
-      var input = document.getElementById('cw-input')
-      if (input) setTimeout(function(){ input.focus() }, 180)
-      scrollBottom()
-    } else {
-      panel.classList.remove('open')
-      panel.setAttribute('aria-hidden', 'true')
-      iconO.style.display = 'flex'
-      iconC.style.display = 'none'
-    }
-  }
-
-  function scrollBottom() {
-    var el = document.getElementById('cw-messages')
-    if (el) el.scrollTop = el.scrollHeight
-  }
-
-  function appendMsg(type, prefix, text, isErr) {
-    var msgs = document.getElementById('cw-messages')
-    if (!msgs) return
-    var row = document.createElement('div')
-    row.className = type === 'user' ? 'cw-msg-user' : 'cw-msg-bot'
-    var p = document.createElement('span')
-    p.className = type === 'user' ? 'cw-user-label' : 'cw-bot-label'
-    p.textContent = prefix
-    var t = document.createElement('span')
-    if (isErr) t.className = 'cw-msg-err'
-    t.textContent = text
-    row.appendChild(p)
-    row.appendChild(t)
-    msgs.appendChild(row)
-    scrollBottom()
-    return row
-  }
-
-  function showTyping() {
-    var msgs = document.getElementById('cw-messages')
-    if (!msgs) return null
-    var row = document.createElement('div')
-    row.className = 'cw-msg-bot'
-    row.id = 'cw-typing'
-    var p = document.createElement('span')
-    p.className = 'cw-bot-label'
-    p.textContent = 'Aakriti:~$'
-    var t = document.createElement('span')
-    t.innerHTML = '<span class="cw-typing"><span class="cw-dot-anim"></span><span class="cw-dot-anim"></span><span class="cw-dot-anim"></span></span>'
-    row.appendChild(p)
-    row.appendChild(t)
-    msgs.appendChild(row)
-    scrollBottom()
-    return row
-  }
-
-  async function send(text) {
-    if (sending || !text || !text.trim()) return
-    sending = true
-
-    var input = document.getElementById('cw-input')
-    var btn   = document.getElementById('cw-send')
-    if (input) input.value = ''
-    if (btn)   btn.disabled = true
-
-    appendMsg('user', 'you:~$', text)
-    history.push({ role: 'user', content: text })
-
-    var typingRow = showTyping()
-
-    try {
-      var res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, history: history.slice(-10) }),
-      })
-      if (typingRow) typingRow.remove()
-      var data = await res.json()
-      if (!res.ok || data.error) {
-        appendMsg('bot', 'Aakriti:~$', 'Error: ' + (data.error || 'Unknown error.'), true)
+    function toggle() {
+      open = !open;
+      var panel = document.getElementById("cw-panel");
+      var iconO = document.getElementById("cw-icon-open");
+      var iconC = document.getElementById("cw-icon-close");
+      if (!panel) return;
+      if (open) {
+        panel.classList.add("open");
+        panel.setAttribute("aria-hidden", "false");
+        iconO.style.display = "none";
+        iconC.style.display = "flex";
+        var input = document.getElementById("cw-input");
+        if (input)
+          setTimeout(function () {
+            input.focus();
+          }, 180);
+        scrollBottom();
       } else {
-        appendMsg('bot', 'Aakriti:~$', data.response)
-        history.push({ role: 'assistant', content: data.response })
+        panel.classList.remove("open");
+        panel.setAttribute("aria-hidden", "true");
+        iconO.style.display = "flex";
+        iconC.style.display = "none";
       }
-    } catch (err) {
-      if (typingRow) typingRow.remove()
-      appendMsg('bot', 'Aakriti:~$', 'Could not reach /api/chat. Check your API configuration.', true)
     }
 
-    sending = false
-    if (btn) btn.disabled = false
-    var inp = document.getElementById('cw-input')
-    if (inp) inp.focus()
-  }
+    function scrollBottom() {
+      var el = document.getElementById("cw-messages");
+      if (el) el.scrollTop = el.scrollHeight;
+    }
 
-  function init() {
-    var toggleBtn = document.getElementById('cw-toggle')
-    var input     = document.getElementById('cw-input')
-    var sendBtn   = document.getElementById('cw-send')
+    function appendMsg(type, prefix, text, isErr) {
+      var msgs = document.getElementById("cw-messages");
+      if (!msgs) return;
+      var row = document.createElement("div");
+      row.className = type === "user" ? "cw-msg-user" : "cw-msg-bot";
+      var p = document.createElement("span");
+      p.className = type === "user" ? "cw-user-label" : "cw-bot-label";
+      p.textContent = prefix;
+      var t = document.createElement("span");
+      if (isErr) t.className = "cw-msg-err";
+      t.textContent = text;
+      row.appendChild(p);
+      row.appendChild(t);
+      msgs.appendChild(row);
+      scrollBottom();
+      return row;
+    }
 
-    if (toggleBtn) toggleBtn.addEventListener('click', toggle)
+    function showTyping() {
+      var msgs = document.getElementById("cw-messages");
+      if (!msgs) return null;
+      var row = document.createElement("div");
+      row.className = "cw-msg-bot";
+      row.id = "cw-typing";
+      var p = document.createElement("span");
+      p.className = "cw-bot-label";
+      p.textContent = "Aakriti:~$";
+      var t = document.createElement("span");
+      t.innerHTML =
+        '<span class="cw-typing"><span class="cw-dot-anim"></span><span class="cw-dot-anim"></span><span class="cw-dot-anim"></span></span>';
+      row.appendChild(p);
+      row.appendChild(t);
+      msgs.appendChild(row);
+      scrollBottom();
+      return row;
+    }
 
-    if (input) {
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault()
-          send(this.value.trim())
+    async function send(text) {
+      if (sending || !text || !text.trim()) return;
+      sending = true;
+
+      var input = document.getElementById("cw-input");
+      var btn = document.getElementById("cw-send");
+      if (input) input.value = "";
+      if (btn) btn.disabled = true;
+
+      appendMsg("user", "you:~$", text);
+      history.push({ role: "user", content: text });
+
+      var typingRow = showTyping();
+
+      try {
+        var res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, history: history.slice(-10) }),
+        });
+        if (typingRow) typingRow.remove();
+        var data = await res.json();
+        if (!res.ok || data.error) {
+          appendMsg(
+            "bot",
+            "Aakriti:~$",
+            "Error: " + (data.error || "Unknown error."),
+            true
+          );
+        } else {
+          appendMsg("bot", "Aakriti:~$", data.response);
+          history.push({ role: "assistant", content: data.response });
         }
-      })
+      } catch (err) {
+        if (typingRow) typingRow.remove();
+        appendMsg(
+          "bot",
+          "Aakriti:~$",
+          "Could not reach /api/chat. Check your API configuration.",
+          true
+        );
+      }
+
+      sending = false;
+      if (btn) btn.disabled = false;
+      var inp = document.getElementById("cw-input");
+      if (inp) inp.focus();
     }
 
-    if (sendBtn) {
-      sendBtn.addEventListener('click', function () {
-        var inp = document.getElementById('cw-input')
-        if (inp) send(inp.value.trim())
-      })
-    }
-  }
+    function init() {
+      var toggleBtn = document.getElementById("cw-toggle");
+      var input = document.getElementById("cw-input");
+      var sendBtn = document.getElementById("cw-send");
 
-  function checkPlayground() {
-    var isPlayground = window.location.pathname.startsWith('/playground')
-    var toggleBtn = document.getElementById('cw-toggle')
-    var panel     = document.getElementById('cw-panel')
-    if (isPlayground) {
-      toggleBtn && toggleBtn.classList.add('cw-hidden')
-      panel     && panel.classList.add('cw-hidden')
-    } else {
-      toggleBtn && toggleBtn.classList.remove('cw-hidden')
-      panel     && panel.classList.remove('cw-hidden')
-    }
-  }
+      if (toggleBtn) toggleBtn.addEventListener("click", toggle);
 
-  document.addEventListener('DOMContentLoaded', function () { init(); checkPlayground(); })
-  document.addEventListener('astro:after-swap', function () {
-    history = []
-    open = false
-    var panel = document.getElementById('cw-panel')
-    if (panel) {
-      panel.classList.remove('open')
-      panel.setAttribute('aria-hidden', 'true')
+      if (input) {
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            send(this.value.trim());
+          }
+        });
+      }
+
+      if (sendBtn) {
+        sendBtn.addEventListener("click", function () {
+          var inp = document.getElementById("cw-input");
+          if (inp) send(inp.value.trim());
+        });
+      }
     }
-    var iconO = document.getElementById('cw-icon-open')
-    var iconC = document.getElementById('cw-icon-close')
-    if (iconO) iconO.style.display = 'flex'
-    if (iconC) iconC.style.display = 'none'
-    init()
-    checkPlayground()
-  })
-})()
+
+    function checkPlayground() {
+      var isPlayground = window.location.pathname.startsWith("/playground");
+      var toggleBtn = document.getElementById("cw-toggle");
+      var panel = document.getElementById("cw-panel");
+      if (isPlayground) {
+        toggleBtn && toggleBtn.classList.add("cw-hidden");
+        panel && panel.classList.add("cw-hidden");
+      } else {
+        toggleBtn && toggleBtn.classList.remove("cw-hidden");
+        panel && panel.classList.remove("cw-hidden");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      init();
+      checkPlayground();
+    });
+    document.addEventListener("astro:after-swap", function () {
+      history = [];
+      open = false;
+      var panel = document.getElementById("cw-panel");
+      if (panel) {
+        panel.classList.remove("open");
+        panel.setAttribute("aria-hidden", "true");
+      }
+      var iconO = document.getElementById("cw-icon-open");
+      var iconC = document.getElementById("cw-icon-close");
+      if (iconO) iconO.style.display = "flex";
+      if (iconC) iconC.style.display = "none";
+      init();
+      checkPlayground();
+    });
+  })();
 </script>

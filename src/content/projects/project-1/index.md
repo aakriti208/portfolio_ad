@@ -1,7 +1,7 @@
 ---
 title: "CPTPro"
 summary: "Image processing tool that extracts facial features to generate personalized color palettes using color harmony theory"
-date: "2024"
+date: "2024-01-20"
 draft: false
 tags:
   - Python
