@@ -5,7 +5,7 @@ dateStart: "May 2021"
 dateEnd: "Dec 2023"
 ---
 
-- Built scalable RESTful APIs using NestJS and Express for an enterprise SaaS CRM.
-- Led the development of responsive frontend features using TypeScript, ReactJS, Ant Design, and Redux, enhancing lead generation for Heubert’s marketing automation system.
-- Optimized API performance through database indexing and caching, improving response time.
-- Implemented automated tests to reduce bugs and catch issues early in development.
+A SaaS provider specializing in automated visa processing — New South Wales, Australia
+
+- Built scalable RESTful APIs enabling education consultants to manage student applications, track visa documentation, and coordinate with 600+ partner universities across 4 countries, increasing monthly active users from 15,000 to 25,000
+- Modernized the front-end by migrating from legacy class components to React Hooks, establishing a centralized system that eliminated frequent UI errors and improved page load speeds by 500%

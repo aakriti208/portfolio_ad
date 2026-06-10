@@ -6,27 +6,22 @@ const PAGE = {
   DESCRIPTION: "Aakriti Dhakal — Software Engineer & Graduate Researcher",
 }
 
-// TODO: replace all placeholders with real content
 const skillGroups = [
   {
     category: "Languages",
-    skills: ["Python", "TypeScript", "JavaScript", "SQL", "[LANGUAGE_4]"],
+    skills: ["Python", "JavaScript", "TypeScript", "SQL", "C/C++"],
   },
   {
-    category: "ML / AI",
-    skills: ["TensorFlow", "PyTorch", "Scikit-learn", "LangChain", "[ML_TOOL_4]"],
+    category: "AI / ML & Data",
+    skills: ["PyTorch", "TensorFlow", "LLMs (OpenAI, Groq, Local)", "Embeddings", "ETL", "EDA", "Pandas", "NumPy"],
   },
   {
-    category: "Frameworks",
-    skills: ["React", "Node.js", "Next.js", "FastAPI", "Astro"],
+    category: "Backend & Databases",
+    skills: ["FastAPI", "Django", "Flask", "Node.js", "PostgreSQL", "MySQL", "MongoDB", "ChromaDB"],
   },
   {
-    category: "Tools",
-    skills: ["Git", "Docker", "Tableau", "Figma", "[TOOL_5]"],
-  },
-  {
-    category: "Cloud",
-    skills: ["AWS", "[CLOUD_SERVICE_2]", "[CLOUD_SERVICE_3]"],
+    category: "Cloud & Tools",
+    skills: ["AWS (S3, EC2, Lambda, API Gateway, RDS, IAM)", "React", "Next.js", "Docker", "Jupyter", "Hugging Face"],
   },
 ]
 
@@ -34,51 +29,59 @@ const experience = [
   {
     company: "Texas State University",
     role: "Graduate Research Assistant",
-    duration: "Jan 2025 – Present",
-    context: "NSF-funded STEM-CLEAR research project",
+    duration: "Aug 2024 – Current",
+    context: "San Marcos, Texas",
     bullets: [
-      "Increased module completion rates by leveraging Canvas analytics and optimising content delivery strategies",
-      "Visualised student engagement trends using Tableau, creating interactive dashboards for academic stakeholders",
-      "[EXPERIENCE_BULLET_3]",
+      "Developed a RAG-based AI Tutor integrating institutional course management system APIs with ChromaDB, delivering 24/7 grounded support to students and reducing instructor and TA workload by 50%",
+      "Built ML training pipelines using PyTorch Lightning to process 60K+ images, automating data ingestion, preprocessing, checkpointing, and real-time metric logging to ensure reproducible model testing",
+      "Optimized a GPT corpus generation pipeline at TACC to automate processing of 10,000+ documents, leveraging C++ and OpenMP to achieve an 11.37x peak speedup with 80% parallel efficiency",
+      "Collaborated with curriculum and engineering teams to integrate NLP and Deep Learning modules into Canvas, supporting AI-driven learning across 5,000+ students in 15+ programs",
+    ],
+  },
+  {
+    company: "Transparent Politics",
+    role: "Software Developer",
+    duration: "Jan 2026 – Current",
+    context: "Early-Stage Startup · Austin, Texas",
+    bullets: [
+      "Architected and developed the core MVP of a civic engagement platform, enabling users to explore 38 Texas Congressional districts via interactive maps, candidate profiles, and legislative tracking across 100+ policy-categorized bills",
+      "Designed a RAG-based ETL pipeline to embed and index congressional bill data in ChromaDB, enabling fast semantic search and real-time query capabilities",
+    ],
+  },
+  {
+    company: "THRC",
+    role: "Graduate Assistant",
+    duration: "June 2025 – Aug 2025",
+    context: "Health research center · San Marcos, Texas",
+    bullets: [
+      "Partnered with policymakers and research team to deliver actionable Tableau insights from complex healthcare data, driving a 15% increase in veteran healthcare access across 22 rural Texas counties",
+      "Performed EDA on large-scale healthcare datasets (10M+ rows, 38 variables) revealing mental health trends among Texas veterans, deployed via Tableau dashboards to state and VA decision-makers",
     ],
   },
   {
     company: "Heubert Technologies",
     role: "Software Engineer",
     duration: "May 2021 – Dec 2023",
-    context: "Enterprise SaaS CRM platform",
+    context: "SaaS · New South Wales, Australia",
     bullets: [
-      "Built scalable RESTful APIs using NestJS and Express for a CRM serving [USER_COUNT] users",
-      "Led frontend development with TypeScript, ReactJS, Ant Design, and Redux, improving lead generation flow",
-      "Optimised API performance through database indexing and caching, reducing response time by [METRIC_PLACEHOLDER]",
-      "Implemented automated testing pipelines to reduce production bugs",
-    ],
-  },
-  {
-    company: "NEEF",
-    role: "Junior Frontend Developer",
-    duration: "Feb 2019 – Apr 2021",
-    context: "[COMPANY_CONTEXT]",
-    bullets: [
-      "Upgraded legacy React codebase, improving UI responsiveness and increasing user retention by [METRIC_PLACEHOLDER]",
-      "Developed and maintained production-ready client websites using HTML, CSS, Sass, and JavaScript",
-      "Conducted cross-browser QA testing to ensure mobile responsiveness",
+      "Built scalable RESTful APIs enabling education consultants to manage student applications, track visa documentation, and coordinate with 600+ partner universities across 4 countries, increasing monthly active users from 15,000 to 25,000",
+      "Modernized the front-end by migrating from legacy class components to React Hooks, establishing a centralized system that eliminated frequent UI errors and improved page load speeds by 500%",
     ],
   },
 ]
 
 const education = [
   {
-    degree: "M.S. Computer Science",
+    degree: "MS in Computer Science (Software Engineering)",
     institution: "Texas State University",
-    period: "Jan 2024 – Present",
-    coursework: "[RELEVANT_COURSEWORK — e.g. Machine Learning, Algorithms, Database Systems]",
+    period: "Aug 2024 – May 2026",
+    coursework: "",
   },
   {
-    degree: "B.E. Computer Engineering",
+    degree: "BS in Computer Engineering",
     institution: "Tribhuvan University",
-    period: "Nov 2017 – Nov 2021",
-    coursework: "[RELEVANT_COURSEWORK]",
+    period: "Sept 2018",
+    coursework: "",
   },
 ]
 ---
@@ -161,7 +164,7 @@ const education = [
                 </div>
                 <span class="edu-period text-[10px]">{edu.period}</span>
               </div>
-              {edu.coursework && (
+              {edu.coursework && edu.coursework.length > 0 && (
                 <p class="edu-coursework text-[11px] mt-1">{edu.coursework}</p>
               )}
             </div>
@@ -186,16 +189,20 @@ const education = [
         </div>
       </section>
 
-      <!-- ── Publications / Research (optional) ─────── -->
+      <!-- ── Graduate Projects ───────────────────────── -->
       <section class="animate resume-section">
-        <h2 class="section-heading">Research &amp; Publications</h2>
-        <div class="space-y-3">
+        <h2 class="section-heading">Graduate Projects</h2>
+        <div class="space-y-4">
           <div class="pub-block">
-            <p class="pub-title">[PUBLICATION_TITLE or RESEARCH_PROJECT_TITLE]</p>
-            <p class="pub-venue text-[10px]">[VENUE / CONFERENCE / JOURNAL] · [YEAR]</p>
-            <p class="pub-desc text-[11px] mt-1">[BRIEF_DESCRIPTION_OR_ABSTRACT_EXCERPT]</p>
+            <p class="pub-title">ReflectAI — AI-Powered Journaling System <span class="pub-venue">(2025)</span></p>
+            <p class="pub-venue text-[10px]">React Native · Expo · Supabase · FastAPI · BERT · Hugging Face</p>
+            <p class="pub-desc text-[11px] mt-1">Published a custom fine-tuned BERT sentiment analysis model to Hugging Face Hub and integrated it into a production journaling app for real-time emotion detection.</p>
           </div>
-          <!-- Add more publications here. Remove section if not applicable. -->
+          <div class="pub-block">
+            <p class="pub-title">CPTPro — AI Color Analysis System <span class="pub-venue">(2024)</span></p>
+            <p class="pub-venue text-[10px]">Flask · OpenCV · TensorFlow · Matplotlib</p>
+            <p class="pub-desc text-[11px] mt-1">Developed an image processing tool to extract facial features (eyes and hair color) and skin tones, applying color harmony theory to automate the generation of personalized color palettes.</p>
+          </div>
         </div>
       </section>
 

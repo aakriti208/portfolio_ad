@@ -1,6 +1,6 @@
 ---
 company: "Transparent Politics"
-role: "Lead Software Developer"
+role: "Software Developer"
 dateStart: "Jan 2026"
 dateEnd: "Current"
 ---
