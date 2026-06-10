@@ -1,6 +1,6 @@
 ---
 title: "AI's HPC Era: When Access Becomes the Product"
-summary: "Claude Fable 5's tiered access model reminded me of something from my research days — high-performance computing clusters and the idea that some resources are too powerful to simply be open."
+summary: "Claude Fable 5's tiered access model reminded me of something from my research days; high-performance computing clusters and the idea that some resources are too powerful to simply be open."
 date: "2026-06-10"
 tags:
   - AI
