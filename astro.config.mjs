@@ -6,6 +6,7 @@ import solidJs from "@astrojs/solid-js"
 
 // https://astro.build/config
 export default defineConfig({
+  devToolbar: { enabled: false },
   site: "https://astro-sphere-demo.vercel.app",
   // output: 'hybrid' enables server-rendered API routes (e.g. /api/chat).
   // For production you must add a deployment adapter:

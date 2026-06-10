@@ -4,10 +4,13 @@ import PageLayout from "@layouts/PageLayout.astro"
 import { WORK } from "@consts"
 
 const collection = await getCollection("work")
-collection.sort(
-  (a:any, b:any) =>
-    new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime()
-)
+collection.sort((a: any, b: any) => {
+  const aIsCurrent = typeof a.data.dateEnd === "string" && a.data.dateEnd.toLowerCase() === "current"
+  const bIsCurrent = typeof b.data.dateEnd === "string" && b.data.dateEnd.toLowerCase() === "current"
+  if (aIsCurrent && !bIsCurrent) return -1
+  if (!aIsCurrent && bIsCurrent) return 1
+  return new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime()
+})
 
 const work = await Promise.all(
   collection.map(async (item: any) => {
