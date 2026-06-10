@@ -11,6 +11,7 @@
   --cyan-dim:    rgba(0, 245, 255, 0.08);
   --text:        #d4d4d4;
   --text-dim:    #505050;
+  --text-strong: #ffffff;
   --copy-btn-margin: 10px;
 }
 
@@ -23,6 +24,7 @@ html:not(.dark) {
   --cyan-dim:    rgba(0, 122, 140, 0.1);
   --text:        #1c1c1c;
   --text-dim:    #808080;
+  --text-strong: #111111;
   color-scheme: light;
 }
 

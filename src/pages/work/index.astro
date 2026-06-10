@@ -33,7 +33,7 @@ function formatWorkDate(input: Date | string) {
         <p class="cmd-prefix mb-2">$ cat experience/README.md</p>
         <h1 class="page-title">Work Experience</h1>
         <p class="page-subtitle mt-2">
-          Click any role to expand the full case study.
+          Click any role to expand details.
         </p>
       </div>
 
@@ -80,32 +80,26 @@ function formatWorkDate(input: Date | string) {
 
                       <!-- What I built -->
                       <section class="case-section">
-                        <h3 class="case-heading">// What I built</h3>
                         <div class="prose prose-sm max-w-none work-prose">
                           <entry.Content />
                         </div>
                       </section>
 
-                      <!-- Impact placeholder -->
+                      <!-- TODO: uncomment when case study content is ready
                       <section class="case-section">
                         <h3 class="case-heading">// Impact</h3>
                         <ul class="impact-list">
                           <li class="impact-item">
                             <span class="bullet">&gt;</span>
-                            <span class="case-text text-sm">[IMPACT_1 — e.g. "Reduced API response time by 40% through query optimisation and caching"]</span>
+                            <span class="case-text text-sm">[IMPACT_1]</span>
                           </li>
                           <li class="impact-item">
                             <span class="bullet">&gt;</span>
-                            <span class="case-text text-sm">[IMPACT_2 — measurable outcome]</span>
-                          </li>
-                          <li class="impact-item">
-                            <span class="bullet">&gt;</span>
-                            <span class="case-text text-sm">[IMPACT_3 — measurable outcome]</span>
+                            <span class="case-text text-sm">[IMPACT_2]</span>
                           </li>
                         </ul>
                       </section>
 
-                      <!-- Stack placeholder -->
                       <section class="case-section">
                         <h3 class="case-heading">// Tools &amp; Stack</h3>
                         <div class="flex flex-wrap gap-1.5">
@@ -114,6 +108,7 @@ function formatWorkDate(input: Date | string) {
                           <span class="stack-tag">[TOOL_3]</span>
                         </div>
                       </section>
+                      -->
 
                     </div>
                   </div>
@@ -160,7 +155,7 @@ function formatWorkDate(input: Date | string) {
   .work-summary::-webkit-details-marker { display: none; }
 
   .entry-date    { color: var(--text-dim); }
-  .entry-company { color: #ffffff; }
+  .entry-company { color: var(--text-strong); }
   .entry-role    { color: var(--cyan); }
 
   .expand-icon {

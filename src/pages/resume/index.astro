@@ -1,10 +1,10 @@
 ---
-import PageLayout from "@layouts/PageLayout.astro"
+import PageLayout from "@layouts/PageLayout.astro";
 
 const PAGE = {
   TITLE: "Resume",
   DESCRIPTION: "Aakriti Dhakal — Software Engineer & Graduate Researcher",
-}
+};
 
 const skillGroups = [
   {
@@ -13,17 +13,42 @@ const skillGroups = [
   },
   {
     category: "AI / ML & Data",
-    skills: ["PyTorch", "TensorFlow", "LLMs (OpenAI, Groq, Local)", "Embeddings", "ETL", "EDA", "Pandas", "NumPy"],
+    skills: [
+      "PyTorch",
+      "TensorFlow",
+      "LLMs (OpenAI, Groq, Local)",
+      "Embeddings",
+      "ETL",
+      "EDA",
+      "Pandas",
+      "NumPy",
+    ],
   },
   {
     category: "Backend & Databases",
-    skills: ["FastAPI", "Django", "Flask", "Node.js", "PostgreSQL", "MySQL", "MongoDB", "ChromaDB"],
+    skills: [
+      "FastAPI",
+      "Django",
+      "Flask",
+      "Node.js",
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "ChromaDB",
+    ],
   },
   {
     category: "Cloud & Tools",
-    skills: ["AWS (S3, EC2, Lambda, API Gateway, RDS, IAM)", "React", "Next.js", "Docker", "Jupyter", "Hugging Face"],
+    skills: [
+      "AWS (S3, EC2, Lambda, API Gateway, RDS, IAM)",
+      "React",
+      "Next.js",
+      "Docker",
+      "Jupyter",
+      "Hugging Face",
+    ],
   },
-]
+];
 
 const experience = [
   {
@@ -35,17 +60,7 @@ const experience = [
       "Developed a RAG-based AI Tutor integrating institutional course management system APIs with ChromaDB, delivering 24/7 grounded support to students and reducing instructor and TA workload by 50%",
       "Built ML training pipelines using PyTorch Lightning to process 60K+ images, automating data ingestion, preprocessing, checkpointing, and real-time metric logging to ensure reproducible model testing",
       "Optimized a GPT corpus generation pipeline at TACC to automate processing of 10,000+ documents, leveraging C++ and OpenMP to achieve an 11.37x peak speedup with 80% parallel efficiency",
-      "Collaborated with curriculum and engineering teams to integrate NLP and Deep Learning modules into Canvas, supporting AI-driven learning across 5,000+ students in 15+ programs",
-    ],
-  },
-  {
-    company: "Transparent Politics",
-    role: "Software Developer",
-    duration: "Jan 2026 – Current",
-    context: "Early-Stage Startup · Austin, Texas",
-    bullets: [
-      "Architected and developed the core MVP of a civic engagement platform, enabling users to explore 38 Texas Congressional districts via interactive maps, candidate profiles, and legislative tracking across 100+ policy-categorized bills",
-      "Designed a RAG-based ETL pipeline to embed and index congressional bill data in ChromaDB, enabling fast semantic search and real-time query capabilities",
+      "Collaborated with product, curriculum, and engineering teams to integrate NLP and Deep Learning modules across 15 majors, training 5,000+ students in AI literacy",
     ],
   },
   {
@@ -66,29 +81,39 @@ const experience = [
     bullets: [
       "Built scalable RESTful APIs enabling education consultants to manage student applications, track visa documentation, and coordinate with 600+ partner universities across 4 countries, increasing monthly active users from 15,000 to 25,000",
       "Modernized the front-end by migrating from legacy class components to React Hooks, establishing a centralized system that eliminated frequent UI errors and improved page load speeds by 500%",
+      "Automated CI/CD pipelines using AWS CodePipeline and Bitbucket, incorporating automated tests that reduced bugs and saved approximately $50k by catching issues early",
     ],
   },
-]
+  {
+    company: "NEEF",
+    role: "Associate Software Engineer",
+    duration: "Feb 2019 – Apr 2021",
+    context: "Kathmandu, Nepal",
+    bullets: [
+      "Increased sales conversion rate by 50% by developing NEEF's e-commerce frontend using ReactJS and Material UI, integrating Esewa API for secure payments",
+      "Created SEO-friendly sites using Contentful and Next.js, boosting organic traffic by 82% within the first six months",
+    ],
+  },
+];
 
 const education = [
   {
     degree: "MS in Computer Science (Software Engineering)",
     institution: "Texas State University",
-    period: "Aug 2024 – May 2026",
+    period: "",
     coursework: "",
   },
   {
     degree: "BS in Computer Engineering",
     institution: "Tribhuvan University",
-    period: "Sept 2018",
+    period: "",
     coursework: "",
   },
-]
+];
 ---
 
 <PageLayout title={PAGE.TITLE} description={PAGE.DESCRIPTION}>
   <div class="pt-24 pb-20 resume-bg">
-
     <!-- Sticky download button -->
     <div class="fixed top-16 right-4 z-40 print:hidden">
       <a
@@ -97,23 +122,50 @@ const education = [
         class="download-btn text-[9.5px] uppercase tracking-[0.15em] px-3 py-1.5 flex items-center gap-1.5"
         title="TODO: add your resume.pdf to /public/"
       >
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        <svg
+          width="11"
+          height="11"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline
+            points="7 10 12 15 17 10"></polyline><line
+            x1="12"
+            y1="15"
+            x2="12"
+            y2="3"></line>
         </svg>
         PDF
       </a>
     </div>
 
     <div class="max-w-2xl mx-auto px-5">
-
       <!-- ── Header ──────────────────────────────────── -->
       <section class="animate resume-header mb-10">
         <h1 class="name-heading">Aakriti Dhakal</h1>
-        <p class="name-role mt-1">Software Engineer &amp; Graduate Researcher</p>
-        <div class="contact-row flex flex-wrap gap-x-5 gap-y-1 mt-3 text-[11px]">
-          <a href="mailto:aakritidh208@gmail.com" class="contact-link">aakritidh208@gmail.com</a>
-          <a href="https://github.com/aakriti208" target="_blank" class="contact-link">github.com/aakriti208</a>
-          <a href="https://www.linkedin.com/in/aakriti-dhakal/" target="_blank" class="contact-link">linkedin.com/in/aakriti-dhakal</a>
+        <p class="name-role mt-1">
+          Software Engineer &amp; Graduate Researcher
+        </p>
+        <div
+          class="contact-row flex flex-wrap gap-x-5 gap-y-1 mt-3 text-[11px]"
+        >
+          <a href="mailto:aakritidh208@gmail.com" class="contact-link"
+            >aakritidh208@gmail.com</a
+          >
+          <a
+            href="https://github.com/aakriti208"
+            target="_blank"
+            class="contact-link">github.com/aakriti208</a
+          >
+          <a
+            href="https://www.linkedin.com/in/aakriti-dhakal/"
+            target="_blank"
+            class="contact-link">linkedin.com/in/aakriti-dhakal</a
+          >
           <span class="contact-plain">San Marcos, TX</span>
         </div>
       </section>
@@ -125,29 +177,31 @@ const education = [
       <section class="animate resume-section mb-10">
         <h2 class="section-heading">Experience</h2>
         <div class="space-y-7">
-          {experience.map((job) => (
-            <div class="job-block">
-              <div class="flex items-start justify-between flex-wrap gap-1 mb-0.5">
-                <div>
-                  <span class="job-company">{job.company}</span>
-                  <span class="job-dot"> · </span>
-                  <span class="job-role">{job.role}</span>
+          {
+            experience.map((job) => (
+              <div class="job-block">
+                <div class="flex items-start justify-between flex-wrap gap-1 mb-0.5">
+                  <div>
+                    <span class="job-company">{job.company}</span>
+                    <span class="job-dot"> · </span>
+                    <span class="job-role">{job.role}</span>
+                  </div>
+                  <span class="job-duration text-[10px]">{job.duration}</span>
                 </div>
-                <span class="job-duration text-[10px]">{job.duration}</span>
+                {job.context && (
+                  <p class="job-context text-[10px] mb-2">{job.context}</p>
+                )}
+                <ul class="bullet-list">
+                  {job.bullets.map((b) => (
+                    <li class="bullet-item">
+                      <span class="bullet-arrow">&gt;</span>
+                      <span class="bullet-text text-sm">{b}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              {job.context && (
-                <p class="job-context text-[10px] mb-2">{job.context}</p>
-              )}
-              <ul class="bullet-list">
-                {job.bullets.map(b => (
-                  <li class="bullet-item">
-                    <span class="bullet-arrow">&gt;</span>
-                    <span class="bullet-text text-sm">{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </section>
 
@@ -155,20 +209,26 @@ const education = [
       <section class="animate resume-section mb-10">
         <h2 class="section-heading">Education</h2>
         <div class="space-y-5">
-          {education.map(edu => (
-            <div class="edu-block">
-              <div class="flex items-start justify-between flex-wrap gap-1">
-                <div>
-                  <p class="edu-degree">{edu.degree}</p>
-                  <p class="edu-institution">{edu.institution}</p>
+          {
+            education.map((edu) => (
+              <div class="edu-block">
+                <div class="flex items-start justify-between flex-wrap gap-1">
+                  <div>
+                    <p class="edu-degree">{edu.degree}</p>
+                    <p class="edu-institution">{edu.institution}</p>
+                  </div>
+                  {edu.period && (
+                    <span class="edu-period text-[10px]">{edu.period}</span>
+                  )}
                 </div>
-                <span class="edu-period text-[10px]">{edu.period}</span>
+                {edu.coursework && edu.coursework.length > 0 && (
+                  <p class="edu-coursework text-[11px] mt-1">
+                    {edu.coursework}
+                  </p>
+                )}
               </div>
-              {edu.coursework && edu.coursework.length > 0 && (
-                <p class="edu-coursework text-[11px] mt-1">{edu.coursework}</p>
-              )}
-            </div>
-          ))}
+            ))
+          }
         </div>
       </section>
 
@@ -176,16 +236,18 @@ const education = [
       <section class="animate resume-section mb-10">
         <h2 class="section-heading">Skills</h2>
         <div class="skills-grid">
-          {skillGroups.map(group => (
-            <div class="skill-group">
-              <p class="skill-category">{group.category}</p>
-              <div class="flex flex-wrap gap-1.5 mt-1.5">
-                {group.skills.map(skill => (
-                  <span class="skill-tag">{skill}</span>
-                ))}
+          {
+            skillGroups.map((group) => (
+              <div class="skill-group">
+                <p class="skill-category">{group.category}</p>
+                <div class="flex flex-wrap gap-1.5 mt-1.5">
+                  {group.skills.map((skill) => (
+                    <span class="skill-tag">{skill}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </section>
 
@@ -194,45 +256,106 @@ const education = [
         <h2 class="section-heading">Graduate Projects</h2>
         <div class="space-y-4">
           <div class="pub-block">
-            <p class="pub-title">ReflectAI — AI-Powered Journaling System <span class="pub-venue">(2025)</span></p>
-            <p class="pub-venue text-[10px]">React Native · Expo · Supabase · FastAPI · BERT · Hugging Face</p>
-            <p class="pub-desc text-[11px] mt-1">Published a custom fine-tuned BERT sentiment analysis model to Hugging Face Hub and integrated it into a production journaling app for real-time emotion detection.</p>
+            <p class="pub-title">
+              Transparent Politics — Civic Engagement Platform <span
+                class="pub-venue">(2026)</span>
+            </p>
+            <p class="pub-venue text-[10px]">
+              React · ChromaDB · FastAPI · RAG
+            </p>
+            <p class="pub-desc text-[11px] mt-1">
+              Architected the core MVP enabling users to explore 38 Texas
+              Congressional districts via interactive maps, candidate profiles,
+              and legislative tracking across 100+ policy-categorized bills.
+              Built a RAG-based ETL pipeline to embed and index congressional
+              bill data in ChromaDB for fast semantic search.
+            </p>
           </div>
           <div class="pub-block">
-            <p class="pub-title">CPTPro — AI Color Analysis System <span class="pub-venue">(2024)</span></p>
-            <p class="pub-venue text-[10px]">Flask · OpenCV · TensorFlow · Matplotlib</p>
-            <p class="pub-desc text-[11px] mt-1">Developed an image processing tool to extract facial features (eyes and hair color) and skin tones, applying color harmony theory to automate the generation of personalized color palettes.</p>
+            <p class="pub-title">
+              ReflectAI — AI-Powered Journaling System <span class="pub-venue"
+                >(2025)</span>
+            </p>
+            <p class="pub-venue text-[10px]">
+              React Native · Expo · Supabase · FastAPI · BERT · Hugging Face
+            </p>
+            <p class="pub-desc text-[11px] mt-1">
+              Published a custom fine-tuned BERT sentiment analysis model to
+              Hugging Face Hub and integrated it into a production journaling
+              app for real-time emotion detection.
+            </p>
+          </div>
+          <div class="pub-block">
+            <p class="pub-title">
+              CPTPro — AI Color Analysis System <span class="pub-venue"
+                >(2024)</span>
+            </p>
+            <p class="pub-venue text-[10px]">
+              Flask · OpenCV · TensorFlow · Matplotlib
+            </p>
+            <p class="pub-desc text-[11px] mt-1">
+              Developed an image processing tool to extract facial features
+              (eyes and hair color) and skin tones, applying color harmony
+              theory to automate the generation of personalized color palettes.
+            </p>
           </div>
         </div>
       </section>
-
     </div>
   </div>
 </PageLayout>
 
 <style>
-  .resume-bg { background-color: var(--bg); }
+  .resume-bg {
+    background-color: var(--bg);
+  }
 
   /* Download button */
   .download-btn {
     border: 1px solid var(--bg-border);
     background-color: var(--bg-surface);
     color: var(--text-dim);
-    transition: border-color 0.18s, color 0.18s;
+    transition:
+      border-color 0.18s,
+      color 0.18s;
     cursor: pointer;
   }
-  .download-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+  .download-btn:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
 
   /* Header */
-  .resume-header {}
-  .name-heading { font-size: 1.6rem; font-weight: 700; color: #ffffff; line-height: 1.2; }
-  .name-role    { font-size: 12px; color: var(--cyan); font-weight: 600; }
-  .contact-row  {}
-  .contact-link { color: var(--text-dim); transition: color 0.18s; }
-  .contact-link:hover { color: var(--cyan); }
-  .contact-plain { color: var(--text-dim); }
+  .resume-header {
+  }
+  .name-heading {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    line-height: 1.2;
+  }
+  .name-role {
+    font-size: 12px;
+    color: var(--cyan);
+    font-weight: 600;
+  }
+  .contact-row {
+  }
+  .contact-link {
+    color: var(--text-dim);
+    transition: color 0.18s;
+  }
+  .contact-link:hover {
+    color: var(--cyan);
+  }
+  .contact-plain {
+    color: var(--text-dim);
+  }
 
-  .resume-divider { height: 1px; background-color: var(--bg-border); }
+  .resume-divider {
+    height: 1px;
+    background-color: var(--bg-border);
+  }
 
   /* Sections */
   .section-heading {
@@ -245,55 +368,161 @@ const education = [
     margin-bottom: 14px;
     border-bottom: 1px solid var(--bg-border);
   }
-  .section-heading::before { content: '// '; color: var(--text-dim); }
+  .section-heading::before {
+    content: "// ";
+    color: var(--text-dim);
+  }
 
   /* Experience */
-  .job-company  { font-weight: 700; color: #ffffff; font-size: 13px; }
-  .job-dot      { color: var(--text-dim); }
-  .job-role     { color: var(--cyan); font-size: 12px; font-weight: 600; }
-  .job-duration { color: var(--text-dim); }
-  .job-context  { color: var(--text-dim); }
+  .job-company {
+    font-weight: 700;
+    color: var(--text-strong);
+    font-size: 13px;
+  }
+  .job-dot {
+    color: var(--text-dim);
+  }
+  .job-role {
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .job-duration {
+    color: var(--text-dim);
+  }
+  .job-context {
+    color: var(--text-dim);
+  }
 
-  .bullet-list  { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
-  .bullet-item  { display: flex; gap: 0.6rem; align-items: baseline; }
-  .bullet-arrow { color: var(--text-dim); font-size: 10px; flex-shrink: 0; }
-  .bullet-text  { color: var(--text); line-height: 1.55; }
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .bullet-item {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .bullet-arrow {
+    color: var(--text-dim);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .bullet-text {
+    color: var(--text);
+    line-height: 1.55;
+  }
 
   /* Education */
-  .edu-degree      { font-size: 13px; font-weight: 600; color: #ffffff; }
-  .edu-institution { font-size: 11px; color: var(--cyan); }
-  .edu-period      { color: var(--text-dim); }
-  .edu-coursework  { color: var(--text-dim); }
+  .edu-degree {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-strong);
+  }
+  .edu-institution {
+    font-size: 11px;
+    color: var(--cyan);
+  }
+  .edu-period {
+    color: var(--text-dim);
+  }
+  .edu-coursework {
+    color: var(--text-dim);
+  }
 
   /* Skills */
-  .skills-grid { display: flex; flex-direction: column; gap: 0.9rem; }
-  .skill-category { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-dim); }
+  .skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .skill-category {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-dim);
+  }
   .skill-tag {
     font-size: 10.5px;
     border: 1px solid var(--bg-border);
     color: var(--text-dim);
     padding: 2px 7px;
-    transition: border-color 0.15s, color 0.15s;
+    transition:
+      border-color 0.15s,
+      color 0.15s;
   }
-  .skill-tag:hover { border-color: var(--cyan); color: var(--cyan); }
+  .skill-tag:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
 
   /* Publications */
-  .pub-title  { font-size: 13px; font-weight: 600; color: var(--text); }
-  .pub-venue  { color: var(--text-dim); }
-  .pub-desc   { color: var(--text-dim); line-height: 1.55; }
+  .pub-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .pub-venue {
+    color: var(--text-dim);
+  }
+  .pub-desc {
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
 
   /* ── Print styles ──────────────────────────────────────── */
   @media print {
-    header, footer, .download-btn { display: none !important; }
-    .resume-bg { background: white !important; padding-top: 1rem !important; }
-    .name-heading, .edu-degree, .job-company { color: #000 !important; }
-    .name-role, .edu-institution, .job-role, .section-heading { color: #b45309 !important; }
-    .bullet-text, .pub-title { color: #222 !important; }
-    .contact-link, .contact-plain, .job-duration, .edu-period,
-    .pub-venue, .pub-desc, .job-context, .edu-coursework,
-    .bullet-arrow, .skill-category, .job-dot { color: #666 !important; }
-    .skill-tag { border-color: #ccc !important; color: #555 !important; }
-    .resume-divider, .section-heading { border-color: #ddd !important; }
-    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    header,
+    footer,
+    .download-btn {
+      display: none !important;
+    }
+    .resume-bg {
+      background: white !important;
+      padding-top: 1rem !important;
+    }
+    .name-heading,
+    .edu-degree,
+    .job-company {
+      color: #000 !important;
+    }
+    .name-role,
+    .edu-institution,
+    .job-role,
+    .section-heading {
+      color: #b45309 !important;
+    }
+    .bullet-text,
+    .pub-title {
+      color: #222 !important;
+    }
+    .contact-link,
+    .contact-plain,
+    .job-duration,
+    .edu-period,
+    .pub-venue,
+    .pub-desc,
+    .job-context,
+    .edu-coursework,
+    .bullet-arrow,
+    .skill-category,
+    .job-dot {
+      color: #666 !important;
+    }
+    .skill-tag {
+      border-color: #ccc !important;
+      color: #555 !important;
+    }
+    .resume-divider,
+    .section-heading {
+      border-color: #ddd !important;
+    }
+    * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
   }
 </style>
