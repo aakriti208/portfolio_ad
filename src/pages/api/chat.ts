@@ -1,9 +1,9 @@
 /**
- * /api/chat — Claude-powered portfolio assistant
+ * /api/chat — Groq-powered portfolio assistant
  *
  * SETUP REQUIRED:
- * 1. Install the SDK:          npm install @anthropic-ai/sdk
- * 2. Add your API key:         ANTHROPIC_API_KEY=sk-ant-... in .env (never commit this)
+ * 1. Install the SDK:          npm install groq-sdk
+ * 2. Add your API key:         GROQ_API_KEY=gsk_... in .env (never commit this)
  * 3. Enable server rendering:  astro.config.mjs already has output: 'hybrid'
  * 4. Add a deployment adapter: @astrojs/vercel, @astrojs/node, etc.
  *
@@ -12,7 +12,7 @@
  */
 
 import type { APIRoute } from "astro"
-import Anthropic from "@anthropic-ai/sdk"
+import Groq from "groq-sdk"
 
 // TODO: paste your real knowledge base here — resume, projects, blog excerpts, etc.
 const KNOWLEDGE_BASE = `
@@ -53,10 +53,10 @@ ${KNOWLEDGE_BASE}`
 
 export const POST: APIRoute = async ({ request }) => {
   // Validate API key
-  const apiKey = import.meta.env.ANTHROPIC_API_KEY
+  const apiKey = import.meta.env.GROQ_API_KEY
   if (!apiKey) {
     return new Response(
-      JSON.stringify({ error: "ANTHROPIC_API_KEY not configured. Add it to your .env file." }),
+      JSON.stringify({ error: "GROQ_API_KEY not configured. Add it to your .env file." }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     )
   }
@@ -82,7 +82,8 @@ export const POST: APIRoute = async ({ request }) => {
 
   // Build message history (max last 10 turns to control token cost)
   const recentHistory = history.slice(-10)
-  const messages: Anthropic.MessageParam[] = [
+  const messages: Groq.Chat.ChatCompletionMessageParam[] = [
+    { role: "system", content: SYSTEM_PROMPT },
     ...recentHistory
       .filter(m => m.role === "user" || m.role === "assistant")
       .map(m => ({ role: m.role as "user" | "assistant", content: m.content })),
@@ -90,17 +91,15 @@ export const POST: APIRoute = async ({ request }) => {
   ]
 
   try {
-    const client = new Anthropic({ apiKey })
+    const client = new Groq({ apiKey })
 
-    const response = await client.messages.create({
-      model: "claude-sonnet-4-6",
+    const response = await client.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
       max_tokens: 1024,
-      system: SYSTEM_PROMPT,
       messages,
     })
 
-    const text =
-      response.content[0]?.type === "text" ? response.content[0].text : ""
+    const text = response.choices[0]?.message?.content ?? ""
 
     return new Response(JSON.stringify({ response: text }), {
       status: 200,
@@ -109,7 +108,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error"
     return new Response(
-      JSON.stringify({ error: `Claude API error: ${message}` }),
+      JSON.stringify({ error: `Groq API error: ${message}` }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     )
   }
