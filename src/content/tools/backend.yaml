@@ -1,0 +1,7 @@
+category: "Backend"
+tools:
+  - FastAPI
+  - Node.js
+  - PostgreSQL
+  - pgvector
+why: "FastAPI for ML-serving APIs (async, type-safe, fast); Node for frontend backends; PostgreSQL as primary database; pgvector for production vector search."

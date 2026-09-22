@@ -1,0 +1,6 @@
+category: "Infrastructure"
+tools:
+  - AWS
+  - Docker
+  - Vercel
+why: "AWS for production deployments and data pipelines; Docker for reproducible environments; Vercel for frontend hosting."

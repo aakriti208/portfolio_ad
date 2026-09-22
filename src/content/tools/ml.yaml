@@ -1,0 +1,7 @@
+category: "ML / AI"
+tools:
+  - PyTorch
+  - Hugging Face
+  - LangGraph
+  - ChromaDB
+why: "PyTorch for training; HF for model hub and fine-tuning; LangGraph for multi-agent orchestration; ChromaDB for fast vector retrieval in prototypes."

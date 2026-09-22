@@ -1,0 +1,7 @@
+category: "Languages"
+tools:
+  - Python
+  - TypeScript
+  - SQL
+  - C++
+why: "Python for ML/data; TypeScript for full-stack type safety; SQL daily for data work; C++ for performance-critical pipelines."

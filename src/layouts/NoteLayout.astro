@@ -1,0 +1,86 @@
+---
+import BaseLayout from "./BaseLayout.astro"
+import TableOfContents from "@components/TableOfContents.astro"
+import RelatedContent from "@components/RelatedContent.astro"
+import { formatDate, readingTime } from "@lib/utils"
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  note: CollectionEntry<"notes">
+  headings: { depth: number; slug: string; text: string }[]
+  relatedNotes?: CollectionEntry<"notes">[]
+  relatedProjects?: CollectionEntry<"projects">[]
+  body: string
+}
+
+const { note, headings, relatedNotes, relatedProjects, body } = Astro.props
+const { title, date, updated, summary, tags } = note.data
+const mins = readingTime(body)
+---
+
+<BaseLayout title={`${title} — Aakriti Dhakal`} description={summary}>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+    <div class="lg:grid lg:grid-cols-[1fr_200px] lg:gap-12">
+      <!-- Article -->
+      <article>
+        <!-- Header -->
+        <header class="mb-8">
+          <div class="flex flex-wrap items-center gap-2 mb-3">
+            {tags.map((tag) => (
+              <a
+                href={`/notes?tag=${encodeURIComponent(tag)}`}
+                class="font-mono text-xs px-2 py-0.5 bg-[var(--bg-raised)] border border-[var(--border)] rounded text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+          <h1 class="text-2xl font-semibold text-[var(--text)] mb-3">{title}</h1>
+          <p class="text-[var(--text-secondary)] mb-4">{summary}</p>
+          <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-[var(--text-secondary)]">
+            <time datetime={date.toISOString()}>{formatDate(date)}</time>
+            {updated && (
+              <span>Updated {formatDate(updated)}</span>
+            )}
+            <span>{mins} min read</span>
+          </div>
+        </header>
+
+        <!-- Mobile TOC -->
+        {headings.length > 0 && (
+          <details class="lg:hidden mb-8 p-4 bg-[var(--bg-raised)] border border-[var(--border)] rounded-md">
+            <summary class="font-mono text-xs text-[var(--text-secondary)] uppercase tracking-wider cursor-pointer">
+              Contents
+            </summary>
+            <div class="mt-3">
+              <TableOfContents headings={headings} />
+            </div>
+          </details>
+        )}
+
+        <!-- Content -->
+        <div class="prose">
+          <slot />
+        </div>
+
+        <!-- Related -->
+        <RelatedContent relatedNotes={relatedNotes} relatedProjects={relatedProjects} />
+      </article>
+
+      <!-- Desktop TOC sidebar -->
+      {headings.length > 0 && (
+        <aside class="hidden lg:block">
+          <div class="sticky top-20">
+            <TableOfContents headings={headings} />
+          </div>
+        </aside>
+      )}
+    </div>
+  </div>
+
+  <!-- Mermaid -->
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+    mermaid.initialize({ startOnLoad: true, theme: "neutral" })
+  </script>
+</BaseLayout>

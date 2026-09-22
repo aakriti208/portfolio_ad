@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  relatedNotes?: CollectionEntry<"notes">[]
+  relatedProjects?: CollectionEntry<"projects">[]
+}
+
+const { relatedNotes = [], relatedProjects = [] } = Astro.props
+const hasAny = relatedNotes.length > 0 || relatedProjects.length > 0
+---
+
+{hasAny && (
+  <aside class="not-prose mt-12 pt-8 border-t border-[var(--border)]">
+    <p class="font-mono text-xs text-[var(--text-secondary)] uppercase tracking-wider mb-4">Related</p>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {relatedNotes.map((note) => (
+        <a
+          href={`/notes/${note.slug}`}
+          class="block p-3 bg-[var(--bg-raised)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
+        >
+          <span class="font-mono text-xs text-[var(--text-secondary)] block mb-0.5">Note</span>
+          <span class="text-sm font-medium text-[var(--text)]">{note.data.title}</span>
+        </a>
+      ))}
+      {relatedProjects.map((project) => (
+        <a
+          href={`/work/${project.slug}`}
+          class="block p-3 bg-[var(--bg-raised)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
+        >
+          <span class="font-mono text-xs text-[var(--text-secondary)] block mb-0.5">Project</span>
+          <span class="text-sm font-medium text-[var(--text)]">{project.data.title}</span>
+        </a>
+      ))}
+    </div>
+  </aside>
+)}

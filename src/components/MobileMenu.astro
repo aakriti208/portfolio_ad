@@ -1,0 +1,77 @@
+---
+const nav = [
+  { label: "About", href: "/" },
+  { label: "Work", href: "/work" },
+  { label: "Notes", href: "/notes" },
+]
+---
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 hidden flex-col bg-[var(--bg)]"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Navigation menu"
+>
+  <div class="h-14 flex items-center justify-between px-4 border-b border-[var(--border)]">
+    <a href="/" class="font-semibold text-sm tracking-tight">Aakriti Dhakal</a>
+    <button
+      id="mobile-menu-close"
+      aria-label="Close menu"
+      class="w-8 h-8 flex items-center justify-center rounded-md text-[var(--text-secondary)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)] transition-colors"
+    >
+      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="flex flex-col p-4 gap-1">
+    {nav.map(({ label, href }) => (
+      <a
+        href={href}
+        class="px-3 py-2.5 text-base text-[var(--text-secondary)] hover:text-[var(--text)] rounded-md hover:bg-[var(--bg-raised)] transition-colors"
+      >
+        {label}
+      </a>
+    ))}
+  </nav>
+</div>
+
+<script>
+  function initMobileMenu() {
+    const trigger = document.getElementById("mobile-menu-trigger")
+    const close = document.getElementById("mobile-menu-close")
+    const menu = document.getElementById("mobile-menu")
+
+    function open() {
+      menu?.classList.remove("hidden")
+      menu?.classList.add("flex")
+      document.body.style.overflow = "hidden"
+      trigger?.setAttribute("aria-expanded", "true")
+    }
+
+    function closeMenu() {
+      menu?.classList.add("hidden")
+      menu?.classList.remove("flex")
+      document.body.style.overflow = ""
+      trigger?.setAttribute("aria-expanded", "false")
+    }
+
+    trigger?.addEventListener("click", open)
+    close?.addEventListener("click", closeMenu)
+
+    // Close on nav link click
+    menu?.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", closeMenu)
+    })
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu()
+    })
+  }
+
+  initMobileMenu()
+  document.addEventListener("astro:after-swap", initMobileMenu)
+</script>

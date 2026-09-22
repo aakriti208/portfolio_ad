@@ -1,0 +1,6 @@
+category: "Frontend"
+tools:
+  - React
+  - Astro
+  - Tailwind CSS
+why: "React for dynamic UIs; Astro for content sites with minimal JS; Tailwind for rapid, consistent styling."

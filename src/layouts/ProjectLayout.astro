@@ -1,0 +1,109 @@
+---
+import BaseLayout from "./BaseLayout.astro"
+import RelatedContent from "@components/RelatedContent.astro"
+import { formatDateShort } from "@lib/utils"
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  project: CollectionEntry<"projects">
+  relatedNotes?: CollectionEntry<"notes">[]
+}
+
+const { project, relatedNotes } = Astro.props
+const { title, description, status, stack, start_date, end_date, github, demo } = project.data
+
+const statusDot = {
+  "In progress": "bg-[var(--accent)]",
+  "Completed": "bg-green-500",
+  "Paused": "bg-[var(--border)]",
+}[status]
+
+const statusText = {
+  "In progress": "text-[var(--accent)]",
+  "Completed": "text-green-600 dark:text-green-400",
+  "Paused": "text-[var(--text-secondary)]",
+}[status]
+---
+
+<BaseLayout title={`${title} — Aakriti Dhakal`} description={description}>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 lg:py-14">
+    <!-- Back -->
+    <a href="/work" class="font-mono text-xs text-[var(--text-secondary)] hover:text-[var(--text)] transition-colors mb-8 block">
+      ← Work
+    </a>
+
+    <!-- Project metadata header -->
+    <header class="mb-10 pb-8 border-b border-[var(--border)]">
+      <div class="flex items-center gap-2 mb-3">
+        <span class={`w-1.5 h-1.5 rounded-full ${statusDot}`}></span>
+        <span class={`font-mono text-xs ${statusText}`}>{status}</span>
+      </div>
+      <h1 class="text-2xl font-semibold text-[var(--text)] mb-3">{title}</h1>
+      <p class="text-[var(--text-secondary)] mb-5">{description}</p>
+
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+        <!-- Timeline -->
+        <div class="flex items-center gap-1.5 font-mono text-xs text-[var(--text-secondary)]">
+          <span>{formatDateShort(start_date)}</span>
+          <span>→</span>
+          <span>{end_date ? formatDateShort(end_date) : "Present"}</span>
+        </div>
+
+        <!-- Links -->
+        <div class="flex items-center gap-3">
+          {github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-mono text-xs text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+            >
+              <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+              GitHub
+            </a>
+          )}
+          {demo && (
+            <a
+              href={demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-mono text-xs text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors flex items-center gap-1"
+            >
+              <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Demo
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Stack -->
+      <div class="flex flex-wrap gap-1.5 mt-5">
+        {stack.map((tech) => (
+          <span class="font-mono text-xs px-2 py-0.5 bg-[var(--bg-raised)] border border-[var(--border)] rounded text-[var(--text-secondary)]">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose">
+      <slot />
+    </div>
+
+    <!-- Related notes -->
+    <RelatedContent relatedNotes={relatedNotes} />
+  </div>
+
+  <!-- Mermaid -->
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+    mermaid.initialize({ startOnLoad: true, theme: "neutral" })
+  </script>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+import NoteLayout from "@layouts/NoteLayout.astro"
+import { getCollection } from "astro:content"
+import { getRelatedNotesForNote, getRelatedProjectsForNote } from "@lib/relations"
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes", ({ data }) => !data.draft)
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }))
+}
+
+const { note } = Astro.props
+const { Content, headings } = await note.render()
+const relatedNotes = await getRelatedNotesForNote(note.slug, note.data)
+const relatedProjects = await getRelatedProjectsForNote(note.slug, note.data)
+---
+
+<NoteLayout
+  note={note}
+  headings={headings}
+  relatedNotes={relatedNotes}
+  relatedProjects={relatedProjects}
+  body={note.body}
+>
+  <Content />
+</NoteLayout>

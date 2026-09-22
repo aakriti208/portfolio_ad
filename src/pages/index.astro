@@ -1,248 +1,133 @@
 ---
-import { getCollection } from "astro:content";
-import PageLayout from "@layouts/PageLayout.astro";
-import { SITE, SOCIALS } from "@consts";
+import BaseLayout from "@layouts/BaseLayout.astro"
+import ToolStack from "@components/ToolStack.astro"
+import { formatDateShort } from "@lib/utils"
 
-const projects = (await getCollection("projects"))
-  .filter((project: any) => !project.data.draft)
-  .sort((a: any, b: any) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+const work = [
+  {
+    company: "Texas State University",
+    role: "Graduate Research Assistant",
+    start: new Date("2024-08-01"),
+    end: null,
+    location: "San Marcos, TX",
+    bullets: [
+      "Built a RAG-based AI Tutor integrating institutional course management APIs with ChromaDB, reducing instructor and TA workload by 50%",
+      "Built ML training pipelines using PyTorch Lightning to process 60K+ images with automated ingestion, checkpointing, and real-time metric logging",
+      "Optimized a GPT corpus generation pipeline at TACC using C++ and OpenMP, achieving an 11.37x peak speedup with 80% parallel efficiency",
+      "Collaborated to integrate NLP and Deep Learning modules across 15 majors, training 5,000+ students in AI literacy",
+    ],
+  },
+  {
+    company: "THRC",
+    role: "Graduate Assistant",
+    start: new Date("2025-06-01"),
+    end: new Date("2025-08-31"),
+    location: "San Marcos, TX",
+    bullets: [
+      "Partnered with policymakers to deliver Tableau insights from complex healthcare data, driving a 15% increase in veteran healthcare access across 22 rural Texas counties",
+      "Performed EDA on large-scale healthcare datasets (10M+ rows, 38 variables) to reveal mental health trends among Texas veterans",
+    ],
+  },
+  {
+    company: "Heubert Technologies",
+    role: "Software Engineer",
+    start: new Date("2021-05-01"),
+    end: new Date("2023-12-01"),
+    location: "New South Wales, Australia",
+    bullets: [
+      "Built scalable RESTful APIs for education consultants managing student applications across 600+ partner universities in 4 countries, growing MAU from 15,000 to 25,000",
+      "Modernized front-end from legacy class components to React Hooks, eliminating frequent UI errors and improving page load speed by 500%",
+      "Automated CI/CD pipelines with AWS CodePipeline and Bitbucket, saving ~$50k by catching issues early in automated test suites",
+    ],
+  },
+  {
+    company: "NEEF",
+    role: "Associate Software Engineer",
+    start: new Date("2019-02-01"),
+    end: new Date("2021-04-01"),
+    location: "Kathmandu, Nepal",
+    bullets: [
+      "Increased sales conversion by 50% building NEEF's e-commerce frontend with ReactJS and Material UI, integrating Esewa API for secure payments",
+      "Built SEO-friendly sites with Contentful and Next.js, boosting organic traffic by 82% in the first six months",
+    ],
+  },
+]
 ---
 
-<PageLayout title="Home" description={SITE.DESCRIPTION}>
-  <!-- ─── HERO ─────────────────────────────────────────── -->
-  <section
-    id="hero"
-    class="relative min-h-screen w-full flex items-center justify-center"
-  >
-    <div class="text-center px-6 max-w-xl mx-auto select-none">
-      <!-- Prompt -->
-      <p
-        class="animate prompt-line text-[10px] uppercase tracking-[0.25em] mb-8"
-      >
-        aakriti@portfolio:~$
+<BaseLayout title="Aakriti Dhakal" description="AI engineer, ML researcher, and software engineer based in Seattle.">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 lg:py-16">
+
+    <!-- Bio -->
+    <section class="mb-14">
+      <h1 class="text-2xl font-semibold text-[var(--text)] mb-4">Aakriti Dhakal</h1>
+      <div class="space-y-3 text-[var(--text-secondary)] leading-relaxed">
+        <p>
+          I'm a software engineer and ML researcher focused on building reliable AI systems —
+          retrieval-augmented generation, agent pipelines, and production ML infrastructure.
+          Currently finishing my MS in Computer Science at Texas State University.
+        </p>
+        <p>
+          My work sits at the intersection of applied ML and backend engineering. I care about
+          systems that are grounded, auditable, and actually useful — not just technically
+          impressive.
+        </p>
+        <p>
+          Previously: software engineer at Heubert Technologies (visa processing SaaS) and NEEF.
+          Based in Seattle.
+        </p>
+      </div>
+      <div class="flex items-center gap-4 mt-6">
+        <a href="https://github.com/aakriti208" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">GitHub</a>
+        <a href="https://www.linkedin.com/in/aakriti-dhakal/" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">LinkedIn</a>
+        <a href="mailto:aakritidh208@gmail.com" class="font-mono text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">Email</a>
+      </div>
+    </section>
+
+    <!-- Work timeline -->
+    <section class="mb-14">
+      <h2 class="text-sm font-semibold text-[var(--text)] mb-6 pb-2 border-b border-[var(--border)]">Experience</h2>
+      <div class="space-y-8">
+        {work.map((job) => (
+          <div class="grid sm:grid-cols-[180px_1fr] gap-2 sm:gap-6">
+            <div class="shrink-0">
+              <p class="font-mono text-xs text-[var(--text-secondary)]">
+                {formatDateShort(job.start)} — {job.end ? formatDateShort(job.end) : "Present"}
+              </p>
+              <p class="font-mono text-xs text-[var(--text-secondary)] mt-0.5">{job.location}</p>
+            </div>
+            <div>
+              <p class="font-medium text-[var(--text)] text-sm">{job.role}</p>
+              <p class="text-[var(--text-secondary)] text-sm mb-2">{job.company}</p>
+              <ul class="space-y-1.5 text-sm text-[var(--text-secondary)]">
+                {job.bullets.map((b) => (
+                  <li class="flex gap-2">
+                    <span class="text-[var(--border)] mt-1.5 shrink-0">—</span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tool stack -->
+    <section class="mb-14">
+      <h2 class="text-sm font-semibold text-[var(--text)] mb-6 pb-2 border-b border-[var(--border)]">Stack</h2>
+      <ToolStack />
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2 class="text-sm font-semibold text-[var(--text)] mb-4 pb-2 border-b border-[var(--border)]">Contact</h2>
+      <p class="text-[var(--text-secondary)] text-sm mb-3">
+        Open to research collaborations and engineering roles in applied AI and ML infrastructure.
       </p>
+      <a href="mailto:aakritidh208@gmail.com" class="font-mono text-sm text-[var(--accent)] hover:underline">
+        aakritidh208@gmail.com
+      </a>
+    </section>
 
-      <!-- Name: typewriter -->
-      <h1
-        class="animate text-[clamp(2.2rem,6vw,4rem)] font-bold tracking-tight leading-none mb-5 name-heading"
-      >
-        <span id="name-text" aria-label={SITE.AUTHOR}></span><span
-          class="cursor-blink"
-          id="name-cursor"></span>
-      </h1>
-
-      <!-- Role: cycling -->
-      <div class="animate flex items-center justify-center gap-2 mb-12 h-8">
-        <span class="prompt-arrow text-sm">&gt;</span>
-        <span id="role-text" class="text-base font-semibold role-text"></span>
-        <span class="cursor-blink" id="role-cursor" style="display:none"></span>
-      </div>
-
-      <!-- CTAs -->
-      <div class="animate flex gap-3 justify-center flex-wrap">
-        <a href="/work" class="cta-primary">view work</a>
-        <a href="/projects" class="cta-secondary">projects</a>
-      </div>
-    </div>
-
-    <!-- Scroll hint -->
-    <div
-      class="animate absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-hint"
-    >
-      <span class="text-[9px] uppercase tracking-[0.35em]">scroll</span>
-      <svg
-        width="12"
-        height="18"
-        viewBox="0 0 12 18"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <line x1="6" y1="1" x2="6" y2="17"></line>
-        <polyline points="2,12 6,17 10,12"></polyline>
-      </svg>
-    </div>
-  </section>
-
-  <!-- ─── CONTENT ───────────────────────────────────────── -->
-  <div class="content-area">
-    <div class="mx-auto max-w-screen-sm px-5 pb-24 space-y-16">
-      <!-- Contact -->
-      <section class="animate">
-        <p class="section-label mb-5">$ cat contact.txt</p>
-        <div class="space-y-3">
-          {
-            SOCIALS.map((social) => (
-              <div class="flex items-center gap-3 text-sm">
-                <span class="contact-label w-16 shrink-0 text-[10px] uppercase tracking-widest">
-                  {social.NAME}
-                </span>
-                <span class="divider-line">—</span>
-                <a href={social.HREF} target="_blank" class="contact-link">
-                  {social.TEXT}
-                </a>
-              </div>
-            ))
-          }
-        </div>
-      </section>
-    </div>
   </div>
-</PageLayout>
-
-<style>
-  /* Hero text colours */
-  .prompt-line {
-    color: var(--text-dim);
-  }
-  .name-heading {
-    color: var(--text-strong);
-  }
-  .prompt-arrow {
-    color: var(--text-dim);
-  }
-  .role-text {
-    color: var(--cyan);
-  }
-  .scroll-hint {
-    color: var(--text-dim);
-  }
-
-  /* CTAs */
-  .cta-primary {
-    padding: 0.6rem 1.5rem;
-    font-size: 10.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    border: 1px solid var(--cyan);
-    color: var(--cyan);
-    transition:
-      background-color 0.18s,
-      color 0.18s;
-  }
-  .cta-primary:hover {
-    background-color: var(--cyan);
-    color: #0a0a0a;
-  }
-  .cta-secondary {
-    padding: 0.6rem 1.5rem;
-    font-size: 10.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    border: 1px solid var(--bg-border);
-    color: var(--text-dim);
-    transition:
-      border-color 0.18s,
-      color 0.18s;
-  }
-  .cta-secondary:hover {
-    border-color: var(--cyan);
-    color: var(--cyan);
-  }
-
-  /* Content area */
-  .content-area {
-    background-color: var(--bg);
-  }
-  .section-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--text-dim);
-  }
-  .body-text {
-    color: var(--text);
-  }
-  .accent {
-    color: var(--cyan);
-  }
-
-  /* Project section */
-  .see-all-link {
-    color: var(--text-dim);
-    transition: color 0.18s;
-  }
-  .see-all-link:hover {
-    color: var(--cyan);
-  }
-
-  /* Contact */
-  .contact-label {
-    color: var(--text-dim);
-  }
-  .divider-line {
-    color: var(--bg-border);
-    font-size: 12px;
-  }
-  .contact-link {
-    color: var(--text);
-    transition: color 0.18s;
-  }
-  .contact-link:hover {
-    color: var(--cyan);
-  }
-</style>
-
-<script is:inline>
-  (function () {
-    var name = "Aakriti Dhakal";
-    var roles = ["AI Engineer", "AI Educator", "...is Building Systems"];
-    var ri = 0,
-      ci = 0,
-      deleting = false;
-
-    function init() {
-      var nameEl = document.getElementById("name-text");
-      var nameCur = document.getElementById("name-cursor");
-      var roleEl = document.getElementById("role-text");
-      var roleCur = document.getElementById("role-cursor");
-      if (!nameEl || !roleEl) return;
-
-      var i = 0;
-      function typeName() {
-        nameEl.textContent = name.slice(0, i + 1);
-        i++;
-        if (i < name.length) {
-          setTimeout(typeName, 60 + Math.random() * 28);
-        } else {
-          setTimeout(function () {
-            if (nameCur) nameCur.style.display = "none";
-            if (roleCur) roleCur.style.display = "inline-block";
-            typeRole();
-          }, 320);
-        }
-      }
-
-      function typeRole() {
-        var cur = roles[ri];
-        if (!deleting) {
-          roleEl.textContent = cur.slice(0, ci + 1);
-          ci++;
-          if (ci === cur.length) {
-            deleting = true;
-            setTimeout(typeRole, 2100);
-            return;
-          }
-        } else {
-          roleEl.textContent = cur.slice(0, ci - 1);
-          ci--;
-          if (ci === 0) {
-            deleting = false;
-            ri = (ri + 1) % roles.length;
-            setTimeout(typeRole, 260);
-            return;
-          }
-        }
-        setTimeout(typeRole, deleting ? 36 : 72 + Math.random() * 22);
-      }
-
-      setTimeout(typeName, 480);
-    }
-
-    document.addEventListener("DOMContentLoaded", init);
-    document.addEventListener("astro:after-swap", init);
-  })();
-</script>
+</BaseLayout>

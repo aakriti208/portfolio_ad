@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content"
+
+const toolCategories = await getCollection("tools")
+---
+
+<div class="not-prose">
+  <!-- Desktop: table -->
+  <table class="hidden sm:table w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b border-[var(--border)]">
+        <th class="text-left py-2 pr-4 font-medium text-[var(--text)] w-36">Category</th>
+        <th class="text-left py-2 pr-4 font-medium text-[var(--text)]">Tools</th>
+        <th class="text-left py-2 font-medium text-[var(--text)]">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {toolCategories.map(({ data }) => (
+        <tr class="border-b border-[var(--border)] last:border-0">
+          <td class="py-2.5 pr-4 font-mono text-xs text-[var(--text-secondary)] align-top pt-3">
+            {data.category}
+          </td>
+          <td class="py-2.5 pr-4 align-top">
+            <div class="flex flex-wrap gap-1.5 pt-0.5">
+              {data.tools.map((tool) => (
+                <span class="font-mono text-xs px-2 py-0.5 bg-[var(--bg-raised)] border border-[var(--border)] rounded text-[var(--text-secondary)]">
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </td>
+          <td class="py-2.5 text-xs text-[var(--text-secondary)] align-top pt-3 max-w-xs">
+            {data.why}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <!-- Mobile: stacked -->
+  <div class="sm:hidden space-y-4">
+    {toolCategories.map(({ data }) => (
+      <div>
+        <p class="font-mono text-xs text-[var(--text-secondary)] mb-1.5">{data.category}</p>
+        <div class="flex flex-wrap gap-1.5">
+          {data.tools.map((tool) => (
+            <span class="font-mono text-xs px-2 py-0.5 bg-[var(--bg-raised)] border border-[var(--border)] rounded text-[var(--text-secondary)]">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

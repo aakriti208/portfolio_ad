@@ -1,0 +1,93 @@
+---
+---
+
+<dialog
+  id="search-dialog"
+  class="fixed inset-0 z-50 w-full max-w-lg mx-auto mt-[10vh] p-0 bg-[var(--bg-raised)] border border-[var(--border)] rounded-lg shadow-xl backdrop:bg-black/50"
+>
+  <div class="p-4">
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-sm font-medium text-[var(--text)]">Search</span>
+      <button
+        id="search-close"
+        aria-label="Close search"
+        class="text-[var(--text-secondary)] hover:text-[var(--text)] text-xs px-2 py-1 rounded border border-[var(--border)] hover:bg-[var(--bg)] transition-colors"
+      >
+        Esc
+      </button>
+    </div>
+
+    <!-- Dev warning -->
+    <div id="search-dev-warning" class="hidden mb-3 p-3 bg-[var(--bg)] border border-[var(--border)] rounded text-xs text-[var(--text-secondary)]">
+      Search index is only available after <code class="font-mono">npm run build</code>. Run a production build to enable search.
+    </div>
+
+    <div id="pagefind-ui"></div>
+  </div>
+</dialog>
+
+<script>
+  function initSearch() {
+    const dialog = document.getElementById("search-dialog") as HTMLDialogElement | null
+    const trigger = document.getElementById("search-trigger")
+    const closeBtn = document.getElementById("search-close")
+    const devWarning = document.getElementById("search-dev-warning")
+
+    function openSearch() {
+      dialog?.showModal()
+      // Focus first input in pagefind UI
+      setTimeout(() => {
+        const input = dialog?.querySelector("input")
+        input?.focus()
+      }, 50)
+    }
+
+    function closeSearch() {
+      dialog?.close()
+    }
+
+    trigger?.addEventListener("click", openSearch)
+    closeBtn?.addEventListener("click", closeSearch)
+
+    dialog?.addEventListener("click", (e) => {
+      if (e.target === dialog) closeSearch()
+    })
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault()
+        openSearch()
+      }
+      if (e.key === "Escape" && dialog?.open) {
+        closeSearch()
+      }
+    })
+
+    // Initialize Pagefind UI or show dev warning
+    if (typeof window !== "undefined") {
+      // @ts-ignore
+      if (window.PagefindUI) {
+        // @ts-ignore
+        new window.PagefindUI({
+          element: "#pagefind-ui",
+          showSubResults: true,
+        })
+      } else {
+        // Try loading pagefind
+        const script = document.createElement("script")
+        script.src = "/pagefind/pagefind-ui.js"
+        script.onload = () => {
+          // @ts-ignore
+          new window.PagefindUI({ element: "#pagefind-ui", showSubResults: true })
+        }
+        script.onerror = () => {
+          if (devWarning) devWarning.classList.remove("hidden")
+        }
+        document.head.appendChild(script)
+      }
+    }
+  }
+
+  initSearch()
+  document.addEventListener("astro:after-swap", initSearch)
+</script>

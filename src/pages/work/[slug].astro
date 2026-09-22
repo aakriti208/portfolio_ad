@@ -1,0 +1,21 @@
+---
+import ProjectLayout from "@layouts/ProjectLayout.astro"
+import { getCollection } from "astro:content"
+import { getRelatedNotesForProject } from "@lib/relations"
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects")
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }))
+}
+
+const { project } = Astro.props
+const { Content } = await project.render()
+const relatedNotes = await getRelatedNotesForProject(project.slug, project.data)
+---
+
+<ProjectLayout project={project} relatedNotes={relatedNotes}>
+  <Content />
+</ProjectLayout>

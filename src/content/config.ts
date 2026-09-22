@@ -1,52 +1,43 @@
 import { defineCollection, z } from "astro:content"
 
-const work = defineCollection({
-  type: "content",
-  schema: z.object({
-    company: z.string(),
-    role: z.string(),
-    dateStart: z.coerce.date(),
-    dateEnd: z.union([z.coerce.date(), z.string()]),
-  }),
-})
-
-const blog = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    date: z.coerce.date(),
-    tags: z.array(z.string()),
-    draft: z.boolean().optional(),
-  }),
-})
-
 const projects = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    summary: z.string(),
-    date: z.coerce.date(),
-    tags: z.array(z.string()),
-    draft: z.boolean().optional(),
-    demoUrl: z.string().optional(),
-    repoUrl: z.string().optional(),
-    paperUrl: z.string().optional(),
-    // Case study fields
-    problem: z.string().optional(),
-    architecture: z.string().optional(),
-    challenges: z.array(z.string()).optional(),
-    metrics: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
-    context: z.string().optional(),
+    description: z.string(),
+    status: z.enum(["In progress", "Completed", "Paused"]),
+    stack: z.array(z.string()),
+    start_date: z.coerce.date(),
+    end_date: z.coerce.date().optional(),
+    github: z.string().url().optional(),
+    demo: z.string().url().optional(),
+    cover: z.string().optional(),
+    related_notes: z.array(z.string()).optional(),
   }),
 })
 
-const legal = defineCollection({
+const notes = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
+    updated: z.coerce.date().optional(),
+    summary: z.string(),
+    tags: z.array(z.string()),
+    cover: z.string().optional(),
+    related_projects: z.array(z.string()).optional(),
+    related_notes: z.array(z.string()).optional(),
+    draft: z.boolean().optional().default(false),
   }),
 })
 
-export const collections = { work, blog, projects, legal }
+const tools = defineCollection({
+  type: "data",
+  schema: z.object({
+    category: z.string(),
+    tools: z.array(z.string()),
+    why: z.string().optional(),
+  }),
+})
+
+export const collections = { projects, notes, tools }
